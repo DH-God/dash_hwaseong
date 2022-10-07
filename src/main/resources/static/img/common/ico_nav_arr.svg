@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+    <g data-name="그룹 20532">
+        <path data-name="사각형 13470" style="fill:none" d="M0 0h20v20H0z"/>
+        <g data-name="그룹 20410">
+            <path d="M.748 6.617a.742.742 0 0 1-.53-.22.754.754 0 0 1 0-1.06l2.03-2.03-2.03-2.03A.75.75 0 0 1 1.278.218l2.56 2.56a.754.754 0 0 1 0 1.06L1.278 6.4a.725.725 0 0 1-.53.217z" transform="translate(11.814 6.691)" style="fill:#1f1e29"/>
+            <path data-name="Vector" d="M10.92 1.5H.75A.755.755 0 0 1 0 .75.755.755 0 0 1 .75 0h10.17a.755.755 0 0 1 .75.75.755.755 0 0 1-.75.75z" transform="translate(4.131 9.249)" style="fill:#1f1e29"/>
+        </g>
+    </g>
+</svg>
