@@ -305,7 +305,7 @@ body { background: #0f0e19; }
 .table table { width:100%; border-collapse: collapse; table-layout: fixed; }
 .table table thead tr { background: #dcdcdc;}
 .table table thead th { height: 5.6rem;  border-left: 0.1rem solid #707070; text-align: center; font-size:2rem; font-weight: 500; color: #0f0e19; }
-.table table tbody tr { background: #151521; }
+.table table tbody tr { background: #151521; cursor:pointer}
 .table table tbody td { height: 5.6rem;  border-left: 0.1rem solid #707070; text-align: center; font-size:1.8rem;  color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding:0 1rem;}
 .table table tbody tr:nth-child(even) { background: #0f0e19}
 .table table thead th:first-child,
