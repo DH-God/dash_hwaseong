@@ -258,6 +258,19 @@
         }
 
     }
+    let before_id ='';
+    let test = (t) => {
+        if(before_id!==''){
+            document.getElementById(before_id).classList.remove("active");
+            document.getElementById(t.id).className = "active";
+            before_id = t.id;
+        } else {
+            document.getElementById(t.id).className = "active";
+            before_id = t.id;
+        }
+
+        // before_id='';
+    }
 
     window.onload = () => {
 
@@ -280,8 +293,8 @@
         cqv2 = ${item.dataCont}['cqv2']; //주소
         b958 = ${item.dataCont}['b958']; //연락처
 
-        var data = ("<tr id=" + trIndex + ">" +
-            "<td class='crk5'>" + crk5 + "</td>" +
+        var data = ("<tr id=" + trIndex + " onclick=test(this)" + ">" +
+            "<td class='crk5 ' onclick='test()'>" + crk5 + "</td>" +
             "<td>" + q3rp + "</td>" +
             "<td>" + ehx4 + "</td>" +
             "<td>" + cqv2 + "</td>" +
