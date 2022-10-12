@@ -18,7 +18,8 @@ public class DataController {
     public String population_status(Model model) throws Exception {
         List<Map<String, String>> data = dataService.select_welfare_map();
         model.addAttribute("data", data);
-        System.out.println(model.getAttribute("data"));
+//        System.out.println(model.getAttribute("data"));
+
 //        System.out.println(data);
         return "/welfare_map";
     }

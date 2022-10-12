@@ -9,7 +9,7 @@
 
     <select id="select_welfare_map" resultType="HashMap" resultMap="test">
         <![CDATA[
-            SELECT DATA_CONT FROM ADM_XLS_DATA WHERE XLS_UPLD_ID=1043;
+            SELECT DATA_CONT FROM ADM_XLS_DATA WHERE XLS_UPLD_ID=1043 AND DEL_YN='N';
         ]]>
     </select>
 </mapper>

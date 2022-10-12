@@ -38,14 +38,13 @@
                     </li>
                     <li class="active">
                         <a href="#" class="btn-dep1 flip">복지맵</a>
-                        <ul class="dep2" style="display: block">
-                            <li><a href="#" class="btn-dep2">복지기관 (100)</a></li>
-                            <li><a href="#" class="btn-dep2">장애인 (8)</a></li>
-                            <li><a href="#" class="btn-dep2">보건의료시설 (8)</a></li>
-                            <li><a href="#" class="btn-dep2">여성/다문화 (8)</a></li>
-                            <li><a href="#" class="btn-dep2">아동/청소년 (8)</a></li>
-                            <li><a href="#" class="btn-dep2">통합서비스 (8)</a></li>
-                            <li><a href="#" class="btn-dep2">어르신 (8)</a></li>
+                        <ul class="dep2" style="display: block" id="menu_option">
+<%--                            <li><a href="#" class="btn-dep2">장애인 (8)</a></li>--%>
+<%--                            <li><a href="#" class="btn-dep2">보건의료시설 (8)</a></li>--%>
+<%--                            <li><a href="#" class="btn-dep2">여성/다문화 (8)</a></li>--%>
+<%--                            <li><a href="#" class="btn-dep2">아동/청소년 (8)</a></li>--%>
+<%--                            <li><a href="#" class="btn-dep2">통합서비스 (8)</a></li>--%>
+<%--                            <li><a href="#" class="btn-dep2">어르신 (8)</a></li>--%>
                         </ul>
                     </li>
                     <li>
@@ -185,34 +184,6 @@
 
 <script>
 
-    window.onload = () => {
-
-        let trIndex = 0;
-        let tbody = document.getElementById('tbody');
-        let crk5, q3rp, ehx4, cqv2, b958 = '';
-
-        <c:forEach items="${data}" var="item">
-        crk5 = ${item.dataCont}['crk5']; //구분
-        q3rp = ${item.dataCont}['q3rp']; //기관명
-        ehx4 = ${item.dataCont}['ehx4']; //상세설명
-        cqv2 = ${item.dataCont}['cqv2']; //주소
-        b958 = ${item.dataCont}['b958']; //연락처
-
-            var data = ("<tr id=" + trIndex + ">" +
-                "<td>" + crk5 + "</td>" +
-                "<td>" + q3rp + "</td>" +
-                "<td>" + ehx4 + "</td>" +
-                "<td>" + cqv2 + "</td>" +
-                "<td>" + b958 + "</td>" +
-                "</tr>");
-
-            tbody.insertAdjacentHTML('afterbegin', data);
-
-            trIndex++;
-
-        </c:forEach>
-    }
-
     $(function(){
         // 탭
         $('.tab-wrap .tabs a').click(function(){
@@ -260,6 +231,90 @@
         })
 
     })
+
+    let change_data = (t) => {
+        var className = document.getElementsByClassName('crk5');
+        // console.log(t.id);
+            for(let i=0 ; i<className.length; i++) {
+                className[i].parentElement.style.display='';
+                if(t.id==='items_1' && className[i].textContent !== '장애인') {
+                    className[i].parentElement.style.display='none';
+                }
+                else if(t.id==='items_2' && className[i].textContent !== '보건의료시설') {
+                    className[i].parentElement.style.display='none';
+                }
+                else if(t.id==='items_3' && className[i].textContent !== '여성 다문화') {
+                    className[i].parentElement.style.display='none';
+                }
+                else if(t.id==='items_4' && className[i].textContent !== '아동 청소년') {
+                    className[i].parentElement.style.display='none';
+                }
+                else if(t.id==='items_5' && className[i].textContent !== '통합서비스') {
+                    className[i].parentElement.style.display='none';
+                }
+                else if(t.id==='items_6' && className[i].textContent !== '어르신') {
+                    className[i].parentElement.style.display='none';
+                }
+        }
+
+    }
+
+    window.onload = () => {
+
+        let trIndex = 0;
+        let old_men_cnt = 0;
+        let integrated_service_cnt = 0;
+        let children_and_youth_cnt = 0;
+        let women_and_multiculturalism_cnt = 0;
+        let health_and_medical_facilities = 0;
+        let disabled_cnt = 0;
+
+        let tbody = document.getElementById('tbody');
+        let menu_option = document.getElementById('menu_option');
+        let crk5, q3rp, ehx4, cqv2, b958 = '';
+
+        <c:forEach items="${data}" var="item">
+        crk5 = ${item.dataCont}['crk5']; //구분
+        q3rp = ${item.dataCont}['q3rp']; //기관명
+        ehx4 = ${item.dataCont}['ehx4']; //상세설명
+        cqv2 = ${item.dataCont}['cqv2']; //주소
+        b958 = ${item.dataCont}['b958']; //연락처
+
+        var data = ("<tr id=" + trIndex + ">" +
+            "<td class='crk5'>" + crk5 + "</td>" +
+            "<td>" + q3rp + "</td>" +
+            "<td>" + ehx4 + "</td>" +
+            "<td>" + cqv2 + "</td>" +
+            "<td>" + b958 + "</td>" +
+            "</tr>");
+
+        tbody.insertAdjacentHTML('afterbegin', data);
+
+        trIndex++;
+
+        switch(${item.dataCont}['crk5']) {
+            case '어르신': old_men_cnt ++; break;
+            case '통합서비스': integrated_service_cnt ++; break;
+            case '아동 청소년': children_and_youth_cnt ++; break;
+            case '여성 다문화': women_and_multiculturalism_cnt ++; break;
+            case '보건의료시설': health_and_medical_facilities ++; break;
+            case '장애인': disabled_cnt ++; break;
+        }
+        </c:forEach>
+
+        var list = ("<li id= 'all_items' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "복지기관" + "(" + trIndex + ")</a></li>"
+            + "<li id ='items_1' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "장애인" + "(" + disabled_cnt + ")</a></li>"
+            + "<li id='items_2' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "보건의료시설" + "(" + health_and_medical_facilities + ")</a></li>"
+            + "<li id='items_3' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "여성/다문화" + "(" + women_and_multiculturalism_cnt + ")</a></li>"
+            + "<li id='items_4' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "아동/청소년" + "(" + children_and_youth_cnt + ")</a></li>"
+            + "<li id='items_5' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "통합서비스" + "(" + integrated_service_cnt + ")</a></li>"
+            + "<li id='items_6' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "어르신" + "(" + old_men_cnt + ")</a></li>");
+
+        menu_option.insertAdjacentHTML('afterbegin', list);
+        // <li><a href='javascript:change_data()' class="btn-dep2">테스트</a></li>
+
+
+    }
 </script>
 
 </body>

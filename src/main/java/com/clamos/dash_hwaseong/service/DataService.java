@@ -7,5 +7,4 @@ import java.util.Map;
 
 public interface DataService {
     List<Map<String, String>> select_welfare_map() throws Exception;
-
 }
