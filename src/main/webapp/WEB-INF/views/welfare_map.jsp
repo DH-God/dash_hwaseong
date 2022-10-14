@@ -19,6 +19,9 @@
     <script type="text/javascript" src="js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="js/swiper.min.js"></script>
     <script type="text/javascript" src="js/front.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b46c489e2a7d3aae1777e299125177fe"></script>
+
+
 
 </head>
 <body>
@@ -92,12 +95,13 @@
             <div class="left-box">
 
                 <div class="content-common-box">
-                    <h2 class="h2">화성시 축제현황</h2>
+                    <h2 class="h2">화성시 복지맵</h2>
                     <div class="cont none-bg">
                         <div class="map-wrap">
-
+                            <div id="map"  style="border:0; width:100%; height:100%;">
+                            </div>
                             <!-- 임시지도 -->
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12655.01976226366!2d127.13602529008207!3d37.5372736419248!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357cb01f27d2ed49%3A0x482f4a1a1213e5a5!2z7ISc7Jq47Yq567OE7IucIOqwleuPmeq1rCDrqoXsnbzroZw!5e0!3m2!1sko!2skr!4v1662010450137!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<%--                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12655.01976226366!2d127.13602529008207!3d37.5372736419248!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357cb01f27d2ed49%3A0x482f4a1a1213e5a5!2z7ISc7Jq47Yq567OE7IucIOqwleuPmeq1rCDrqoXsnbzroZw!5e0!3m2!1sko!2skr!4v1662010450137!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>--%>
 
                             <div class="map-infomation">
                                 <h4>복지시설</h4>
@@ -181,9 +185,7 @@
     <div class="navigation">하단 네비게이션 영역</div>
 </div>
 
-
 <script>
-
     $(function(){
         // 탭
         $('.tab-wrap .tabs a').click(function(){
@@ -268,9 +270,149 @@
             document.getElementById(t.id).className = "active";
             before_id = t.id;
         }
-
-        // before_id='';
     }
+
+
+    var areas = [
+        {
+            name : '용산구',
+            path :[[
+                new kakao.maps.LatLng(37.5548768201904, 126.96966524449994),
+                new kakao.maps.LatLng(37.55308718044556, 126.97642899633566),
+                new kakao.maps.LatLng(37.55522076659584, 126.97654602427454),
+                new kakao.maps.LatLng(37.55320655210504, 126.97874667968763),
+                new kakao.maps.LatLng(37.55368689494708, 126.98541456064552),
+                new kakao.maps.LatLng(37.54722934282707, 126.995229135048),
+                new kakao.maps.LatLng(37.549694559809545, 126.99832516302801),
+                new kakao.maps.LatLng(37.550159406110104, 127.00436818301327),
+                new kakao.maps.LatLng(37.54820235864802, 127.0061334023129),
+                new kakao.maps.LatLng(37.546169758665414, 127.00499711608721),
+                new kakao.maps.LatLng(37.54385947805103, 127.00727818360471),
+                new kakao.maps.LatLng(37.54413326436179, 127.00898460651953),
+                new kakao.maps.LatLng(37.539639030116945, 127.00959054834321),
+                new kakao.maps.LatLng(37.537681185520256, 127.01726163044557),
+                new kakao.maps.LatLng(37.53378887274516, 127.01719284893274),
+                new kakao.maps.LatLng(37.52290225898471, 127.00614038053493),
+                new kakao.maps.LatLng(37.51309192794448, 126.99070240960813),
+                new kakao.maps.LatLng(37.50654651085339, 126.98553683648308),
+                new kakao.maps.LatLng(37.50702053393398, 126.97524914998174),
+                new kakao.maps.LatLng(37.51751820477105, 126.94988506562748),
+                new kakao.maps.LatLng(37.52702918583156, 126.94987870367682),
+                new kakao.maps.LatLng(37.534519656862926, 126.94481851935942),
+                new kakao.maps.LatLng(37.537500243531994, 126.95335659960566),
+                new kakao.maps.LatLng(37.54231338779177, 126.95817394011969),
+                new kakao.maps.LatLng(37.54546318600178, 126.95790512689311),
+                new kakao.maps.LatLng(37.548791603525764, 126.96371984820232),
+                new kakao.maps.LatLng(37.55155543391863, 126.96233786542686),
+                new kakao.maps.LatLng(37.5541513366375, 126.9657135934734),
+                new kakao.maps.LatLng(37.55566236579088, 126.9691850696746),
+                new kakao.maps.LatLng(37.5548768201904, 126.96966524449994)
+            ],
+            [
+                new kakao.maps.LatLng(37.607062869017085, 127.07111288773496),
+            new kakao.maps.LatLng(37.60107201319839, 127.07287376670605),
+            new kakao.maps.LatLng(37.59724304056685, 127.06949105186925),
+            new kakao.maps.LatLng(37.58953367466315, 127.07030363208528),
+            new kakao.maps.LatLng(37.58651213184981, 127.07264218709383),
+            new kakao.maps.LatLng(37.5849555116177, 127.07216063016078),
+            new kakao.maps.LatLng(37.58026781100598, 127.07619547037923),
+            new kakao.maps.LatLng(37.571869232268774, 127.0782018408153),
+            new kakao.maps.LatLng(37.559961773835425, 127.07239004251258),
+            new kakao.maps.LatLng(37.56231553903832, 127.05876047165025),
+            new kakao.maps.LatLng(37.57038253579033, 127.04794980454399),
+            new kakao.maps.LatLng(37.572878529071055, 127.04263554582458),
+            new kakao.maps.LatLng(37.57302061077518, 127.0381755492195),
+            new kakao.maps.LatLng(37.56978273516453, 127.03099733100001),
+            new kakao.maps.LatLng(37.57190723475508, 127.02337770475695),
+            new kakao.maps.LatLng(37.57838361223621, 127.0232348231103),
+            new kakao.maps.LatLng(37.58268174514337, 127.02953994610249),
+            new kakao.maps.LatLng(37.58894739851823, 127.03553876830637),
+            new kakao.maps.LatLng(37.5911852565689, 127.03621919708065),
+            new kakao.maps.LatLng(37.59126734230753, 127.03875553445558),
+            new kakao.maps.LatLng(37.5956815721534, 127.04062845365279),
+            new kakao.maps.LatLng(37.5969637344377, 127.04302522879048),
+            new kakao.maps.LatLng(37.59617641777492, 127.04734129391157),
+            new kakao.maps.LatLng(37.60117358544485, 127.05101351973708),
+            new kakao.maps.LatLng(37.600149587503246, 127.05209540476308),
+            new kakao.maps.LatLng(37.60132672748398, 127.05508130598699),
+            new kakao.maps.LatLng(37.6010580545608, 127.05917142337097),
+            new kakao.maps.LatLng(37.605121767227374, 127.06219611364686),
+            new kakao.maps.LatLng(37.607062869017085, 127.07111288773496)
+    ]]
+        }
+    ];
+
+    console.log(areas[0].path)
+    console.log(areas[0].name)
+
+    var container = document.getElementById('map');
+    var options = {
+        center: new kakao.maps.LatLng(37.19956830886976, 126.83149079795464),
+        level: 9
+    };
+
+    var map = new kakao.maps.Map(container, options),
+        customOverlay = new kakao.maps.CustomOverlay({}),
+        infowindow = new kakao.maps.InfoWindow({removable: true});
+
+    for (var i=0, len=areas.length; i<len; i++) {
+        displayArea(areas[i])
+    }
+
+    function displayArea(area) {
+        var polygon = new kakao.maps.Polygon({
+            map: map,
+            path: area.path, // 그려질 다각형의 좌표 배열입니다
+            strokeWeight: 3, // 선의 두께입니다
+            strokeColor: '#004c80', // 선의 색깔입니다
+            strokeOpacity: 0.8, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+            // strokeStyle: 'longdash', // 선의 스타일입니다
+            fillColor: '#fff', // 채우기 색깔입니다
+            fillOpacity: 0.7 // 채우기 불투명도 입니다
+        })
+    }
+
+    //json 사용 함수 본문
+    function readJSON(file, callback) {
+        var rawFile = new XMLHttpRequest();
+        rawFile.overrideMimeType("application/json");
+        rawFile.open("GET", file, true);
+        rawFile.onreadystatechange = function() {
+            if (rawFile.readyState === 4 && rawFile.status == "200") {
+                callback(rawFile.responseText);
+            }
+        }
+        rawFile.send(null);
+    }
+
+    //json 함수 사용법
+    readJSON("json/hs_polygon.json", function(text){
+        var data = JSON.parse(text);
+        console.log(data.features.length);
+        console.log(data.features[1].geometry.coordinates[0][0].length);
+        for ( var a=0; a < data.features.length; a++) {
+            // areas.push({name: data.features[a].properties.name, path: new kakao.maps.LatLng(data.features[a].geometry.coordinates)})
+            // console.log(data.features[a].properties.name);
+            // console.log(data.features[a].geometry.coordinates[0][0][0][0]);
+            // console.log(data.features[a].geometry.coordinates.length);
+            if(data.features[a].geometry.coordinates.length!==1) {
+                for ( var b=0; b < data.features[a].geometry.coordinates.length; b++) {
+                    for(var c=0; c <  data.features[a].geometry.coordinates[a][b].length; c++) {
+                        console.log(data.features[a].properties.name);
+                        // console.log(data.features[a].geometry.coordinates[0][0][0][0]);
+                        console.log(data.features[a].geometry.coordinates[0][b][c][0]);
+                    }
+                }
+            }
+           else console.log(data.features[a].properties.name);
+
+        }
+    });
+
+
+
+
+
 
     window.onload = () => {
 
@@ -294,7 +436,7 @@
         b958 = ${item.dataCont}['b958']; //연락처
 
         var data = ("<tr id=" + trIndex + " onclick=test(this)" + ">" +
-            "<td class='crk5 ' onclick='test()'>" + crk5 + "</td>" +
+            "<td class='crk5'>" + crk5 + "</td>" +
             "<td>" + q3rp + "</td>" +
             "<td>" + ehx4 + "</td>" +
             "<td>" + cqv2 + "</td>" +
@@ -324,9 +466,6 @@
             + "<li id='items_6' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "어르신" + "(" + old_men_cnt + ")</a></li>");
 
         menu_option.insertAdjacentHTML('afterbegin', list);
-        // <li><a href='javascript:change_data()' class="btn-dep2">테스트</a></li>
-
-
     }
 </script>
 
