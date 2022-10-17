@@ -286,14 +286,14 @@
         rawFile.send(null);
     }
 
-
+    var areas = [];
     //json 함수 사용법
     readJSON("json/hs_polygon.json", function(text){
         var data = JSON.parse(text);
         // console.log(data.features.length);
         // console.log(data.features[1].geometry.coordinates[0][0].length);
-        var ppp= [];
-        var ppp2= [];
+        var path= [];
+        var paths= [];
         for ( var a=0; a < data.features.length; a++) {
 
             if(data.features[a].geometry.coordinates.length!==1) {
@@ -302,10 +302,10 @@
                     for(let c=0; c<data.features[a].geometry.coordinates[b][0].length; c++) {
                         // console.log(data.features[a].properties.name);
                         // console.log(data.features[a].geometry.coordinates[b][0][c][0]);
-                        ppp2.push(new kakao.maps.LatLng(data.features[a].geometry.coordinates[b][0][c][1], data.features[a].geometry.coordinates[b][0][c][0]));
+                        paths.push(new kakao.maps.LatLng(data.features[a].geometry.coordinates[b][0][c][1], data.features[a].geometry.coordinates[b][0][c][0]));
                     }
-                    ppp.push(ppp2);
-                    ppp2 = [];
+                    path.push(paths);
+                    paths = [];
                     // console.log('_______________________________')
                 }
             }
@@ -314,22 +314,21 @@
                for(let d=0; d<data.features[a].geometry.coordinates[0][0].length; d++) {
                    // console.log(data.features[a].properties.name);
                    // console.log(data.features[a].geometry.coordinates[0][0][d][0]);
-                   ppp.push(new kakao.maps.LatLng(data.features[a].geometry.coordinates[0][0][d][1], data.features[a].geometry.coordinates[0][0][d][0]))
+                   path=[...path, new kakao.maps.LatLng(data.features[a].geometry.coordinates[0][0][d][1], data.features[a].geometry.coordinates[0][0][d][0])];
 
                }
             }
-           areas.push({name : data.features[a].properties.name, path : ppp})
-            // console.log(ppp);
-            // console.log('_________________');
-            ppp = []
+           areas.push({name : data.features[a].properties.name, path : [...path]})
+    
+            path = []
 
         }
-
+        for (var i=0, len=areas.length; i<len; i++) {
+            displayArea(areas[i])
+        }
     });
+    
 
-
-    var areas = [];
-    console.log(areas);
     var container = document.getElementById('map');
     var options = {
         center: new kakao.maps.LatLng(37.19956830886976, 126.83149079795464),
@@ -340,9 +339,7 @@
         customOverlay = new kakao.maps.CustomOverlay({}),
         infowindow = new kakao.maps.InfoWindow({removable: true});
 
-    for (var i=0, len=areas.length; i<len; i++) {
-        displayArea(areas[i])
-    }
+
 
     function displayArea(area) {
         var polygon = new kakao.maps.Polygon({
