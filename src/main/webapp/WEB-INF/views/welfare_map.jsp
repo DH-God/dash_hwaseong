@@ -19,7 +19,7 @@
     <script type="text/javascript" src="js/jquery-ui.min.js"></script>
     <script type="text/javascript" src="js/swiper.min.js"></script>
     <script type="text/javascript" src="js/front.js"></script>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b46c489e2a7d3aae1777e299125177fe"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b46c489e2a7d3aae1777e299125177fe&libraries=services,clusterer,drawing"></script>
 
 
 
@@ -265,9 +265,11 @@
         if(before_id!==''){
             document.getElementById(before_id).classList.remove("active");
             document.getElementById(t.id).className = "active";
+
             before_id = t.id;
         } else {
             document.getElementById(t.id).className = "active";
+
             before_id = t.id;
         }
     }
@@ -332,7 +334,7 @@
     var container = document.getElementById('map');
     var options = {
         center: new kakao.maps.LatLng(37.19956830886976, 126.83149079795464),
-        level: 9
+        level: 10
     };
 
     var map = new kakao.maps.Map(container, options),
@@ -350,9 +352,55 @@
             strokeOpacity: 0.8, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
             // strokeStyle: 'longdash', // 선의 스타일입니다
             fillColor: '#fff', // 채우기 색깔입니다
-            fillOpacity: 0.7 // 채우기 불투명도 입니다
+            fillOpacity: 0.5 // 채우기 불투명도 입니다
         })
+
+    // 다각형에 mouseover 이벤트를 등록하고 이벤트가 발생하면 폴리곤의 채움색을 변경합니다
+    // 지역명을 표시하는 커스텀오버레이를 지도위에 표시합니다
+    kakao.maps.event.addListener(polygon, 'mouseover', function(mouseEvent) {
+        polygon.setOptions({fillColor: '#09f'});
+
+        customOverlay.setContent('<div class="area">' + area.name + '</div>');
+
+        customOverlay.setPosition(mouseEvent.latLng);
+        customOverlay.setMap(map);
+    });
+
+    // // 다각형에 mousemove 이벤트를 등록하고 이벤트가 발생하면 커스텀 오버레이의 위치를 변경합니다
+    // kakao.maps.event.addListener(polygon, 'mousemove', function(mouseEvent) {
+    //
+    //     customOverlay.setPosition(mouseEvent.latLng);
+    // });
+    //
+    // 다각형에 mouseout 이벤트를 등록하고 이벤트가 발생하면 폴리곤의 채움색을 원래색으로 변경합니다
+    // 커스텀 오버레이를 지도에서 제거합니다
+    kakao.maps.event.addListener(polygon, 'mouseout', function() {
+        polygon.setOptions({fillColor: '#fff'});
+        customOverlay.setMap(null);
+    });
+
+    // // 다각형에 click 이벤트를 등록하고 이벤트가 발생하면 다각형의 이름과 면적을 인포윈도우에 표시합니다
+    // kakao.maps.event.addListener(polygon, 'click', function(mouseEvent) {
+    //     var content = '<div class="info">' +
+    //         '   <div class="title">' + area.name + '</div>' +
+    //         '   <div class="size">총 면적 : 약 ' + Math.floor(polygon.getArea()) + ' m<sup>2</sup></div>' +
+    //         '</div>';
+    //
+    //     infowindow.setContent(content);
+    //     infowindow.setPosition(mouseEvent.latLng);
+    //     infowindow.setMap(map);
+    // });
     }
+
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new kakao.maps.services.Geocoder();
+
+    // 마커 클러스터러를 생성합니다
+    var clusterer = new kakao.maps.MarkerClusterer({
+        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+        minLevel: 8 // 클러스터 할 최소 지도 레벨
+    });
 
 
 
@@ -397,7 +445,36 @@
             case '보건의료시설': health_and_medical_facilities ++; break;
             case '장애인': disabled_cnt ++; break;
         }
+
+        // 주소로 좌표를 검색합니다
+        geocoder.addressSearch(cqv2, function(result, status) {
+            // 정상적으로 검색이 완료됐으면
+            if (status === kakao.maps.services.Status.OK) {
+                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                // 결과값으로 받은 위치를 마커로 표시합니다
+                var marker = new kakao.maps.Marker({
+                    // map: map,
+                    position: coords
+                });
+                // 인포윈도우로 장소에 대한 설명을 표시합니다
+                // var infowindow = new kakao.maps.InfoWindow({
+                //     content: '<div style="color:#000; width:150px;text-align:center;padding:6px 0;">' + q3rp + '</div>'
+                // });
+                // infowindow.open(map, marker);
+
+
+                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                // map.setCenter(coords);
+                // 클러스터러에 마커들을 추가합니다
+                clusterer.addMarkers([marker]);
+                console.log(marker);
+
+            }
+        });
         </c:forEach>
+        console.log(clusterer);
+
 
         var list = ("<li id= 'all_items' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "복지기관" + "(" + trIndex + ")</a></li>"
             + "<li id ='items_1' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "장애인" + "(" + disabled_cnt + ")</a></li>"
