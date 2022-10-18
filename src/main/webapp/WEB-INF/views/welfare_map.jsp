@@ -100,23 +100,20 @@
                         <div class="map-wrap">
                             <div id="map"  style="border:0; width:100%; height:100%;">
                             </div>
-                            <!-- 임시지도 -->
-<%--                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12655.01976226366!2d127.13602529008207!3d37.5372736419248!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357cb01f27d2ed49%3A0x482f4a1a1213e5a5!2z7ISc7Jq47Yq567OE7IucIOqwleuPmeq1rCDrqoXsnbzroZw!5e0!3m2!1sko!2skr!4v1662010450137!5m2!1sko!2skr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>--%>
-
-<%--                            <div class="map-infomation">--%>
-<%--                                <h4>복지시설</h4>--%>
-<%--                                <div class="checklist">--%>
-<%--                                    <div>--%>
-<%--                                        <label><input type="checkbox" class="checkbox all" checked><p><em></em><span>전체</span></p></label>--%>
-<%--                                        <label><input type="checkbox" class="checkbox type1" checked><p><em></em><span>장애인</span></p></label>--%>
-<%--                                        <label><input type="checkbox" class="checkbox type2" checked><p><em></em><span>보건의료시설</span></p></label>--%>
-<%--                                        <label><input type="checkbox" class="checkbox type3" checked><p><em></em><span>여성/다문화</span></p></label>--%>
-<%--                                        <label><input type="checkbox" class="checkbox type4"><p><em></em><span>아동/청소년</span></p></label>--%>
-<%--                                        <label><input type="checkbox" class="checkbox type5"><p><em></em><span>통합서비스</span></p></label>--%>
-<%--                                        <label><input type="checkbox" class="checkbox type6"><p><em></em><span>어르신</span></p></label>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
+                            <div class="map-infomation">
+                                <h4>복지시설</h4>
+                                <div class="checklist">
+                                    <div>
+                                        <label><input type="checkbox" class="checkbox all" checked><p><em></em><span>전체</span></p></label>
+                                        <label><input type="checkbox" class="checkbox type1" checked><p><em></em><span>장애인</span></p></label>
+                                        <label><input type="checkbox" class="checkbox type2" checked><p><em></em><span>보건의료시설</span></p></label>
+                                        <label><input type="checkbox" class="checkbox type3" checked><p><em></em><span>여성/다문화</span></p></label>
+                                        <label><input type="checkbox" class="checkbox type4" checked><p><em></em><span>아동/청소년</span></p></label>
+                                        <label><input type="checkbox" class="checkbox type5" checked><p><em></em><span>통합서비스</span></p></label>
+                                        <label><input type="checkbox" class="checkbox type6" checked><p><em></em><span>어르신</span></p></label>
+                                    </div>
+                                </div>
+                            </div>
 
 <%--                            <div class="marker-box type1 active" style="left: 20%; top:25%; ">--%>
 <%--                                <div class="marker"><img src="img/common/marker1.svg" alt="주황색마커"></div>--%>
@@ -169,7 +166,7 @@
 <%--                                    <td><c:out value="1" /></td>--%>
 <%--                                    <td><c:out value="1" /></td>--%>
 <%--                                    <td><c:out value="1" /></td>--%>
-<%--                                    <td><button onclick="test()">test</button></td>--%>
+<%--                                    <td><button onclick="click_data()">click_data</button></td>--%>
 <%--                                </tr>--%>
                                 </tbody>
                             </table>
@@ -216,8 +213,11 @@
         $('.checkbox.all').click(function(){
             if($(this).is(':checked')){
                 $('.checkbox').prop('checked', true);
+
             }else{
                 $('.checkbox').prop('checked', false);
+                console.log(22);
+                // clusterer.clear();
             }
         })
 
@@ -236,7 +236,7 @@
 
     let change_data = (t) => {
         var className = document.getElementsByClassName('crk5');
-        // console.log(t.id);
+
             for(let i=0 ; i<className.length; i++) {
                 className[i].parentElement.style.display='';
                 if(t.id==='items_1' && className[i].textContent !== '장애인') {
@@ -261,17 +261,71 @@
 
     }
     let before_id ='';
-    let test = (t) => {
+
+    const click_data = (t) => {
+    //
+    //     var iwContent1 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">'+
+    //         '<div class="marker"><img src="img/common/marker1.svg" alt="주황색마커"></div>'+
+    //         '<div class="tit">화성시니어클럽</div>'+
+    //         '</div>'
+    //
+    //     var iwContent2 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">'+
+    //         '<div class="marker"><img src="img/common/marker2.svg" alt="주황색마커"></div>'+
+    //         '<div class="tit">화성시니어클럽</div>'+
+    //         '</div>'
+    //
+    //     var iwContent3 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">'+
+    //         '<div class="marker"><img src="img/common/marker3.svg" alt="주황색마커"></div>'+
+    //         '<div class="tit">화성시니어클럽</div>'+
+    //         '</div>'
+    //
+    //     var iwContent4 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">'+
+    //         '<div class="marker"><img src="img/common/marker4.svg" alt="주황색마커"></div>'+
+    //         '<div class="tit">화성시니어클럽</div>'+
+    //         '</div>'
+    //
+    //     var iwContent5 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">'+
+    //         '<div class="marker"><img src="img/common/marker5.svg" alt="주황색마커"></div>'+
+    //         '<div class="tit">화성시니어클럽</div>'+
+    //         '</div>'
+    //
+    //     var iwContent6 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">'+
+    //         '<div class="marker"><img src="img/common/marker6.svg" alt="주황색마커"></div>'+
+    //         '<div class="tit">화성시니어클럽</div>'+
+    //         '</div>'
+
+
+        let address = document.getElementById(t.id).children[3].textContent
         if(before_id!==''){
             document.getElementById(before_id).classList.remove("active");
             document.getElementById(t.id).className = "active";
-
             before_id = t.id;
         } else {
             document.getElementById(t.id).className = "active";
-
             before_id = t.id;
         }
+        // 주소로 좌표를 검색합니다 ps. 도로명 주소 사묭할 경우 검색 결과 없을수 있음 지번주소 사용 추천
+        geocoder.addressSearch(address, function(result, status) {
+
+            // 정상적으로 검색이 완료됐으면
+            if (status === kakao.maps.services.Status.OK) {
+
+                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                map.setCenter(coords);
+            }
+            else {console.log(status)}
+        });
+
+        // 인포윈도우를 생성합니다
+        // var infowindow = new kakao.maps.InfoWindow({
+        //     position : iwPosition,
+        //     content : iwContent
+        // });
+        // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+        // infowindow.open(map, marker);
+
     }
 
 
@@ -394,6 +448,7 @@
 
     // 주소-좌표 변환 객체를 생성합니다
     var geocoder = new kakao.maps.services.Geocoder();
+    // var markers = [];
 
     // 마커 클러스터러를 생성합니다
     var clusterer = new kakao.maps.MarkerClusterer({
@@ -401,7 +456,6 @@
         averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
         minLevel: 8 // 클러스터 할 최소 지도 레벨
     });
-
 
 
     window.onload = () => {
@@ -425,7 +479,7 @@
         cqv2 = ${item.dataCont}['cqv2']; //주소
         b958 = ${item.dataCont}['b958']; //연락처
 
-        var data = ("<tr id=" + trIndex + " onclick=test(this)" + ">" +
+        var data = ("<tr id=" + trIndex + " onclick=click_data(this)" + ">" +
             "<td class='crk5'>" + crk5 + "</td>" +
             "<td>" + q3rp + "</td>" +
             "<td>" + ehx4 + "</td>" +
@@ -454,27 +508,12 @@
 
                 // 결과값으로 받은 위치를 마커로 표시합니다
                 var marker = new kakao.maps.Marker({
-                    // map: map,
                     position: coords
                 });
-                // 인포윈도우로 장소에 대한 설명을 표시합니다
-                // var infowindow = new kakao.maps.InfoWindow({
-                //     content: '<div style="color:#000; width:150px;text-align:center;padding:6px 0;">' + q3rp + '</div>'
-                // });
-                // infowindow.open(map, marker);
-
-
-                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                // map.setCenter(coords);
-                // 클러스터러에 마커들을 추가합니다
-                clusterer.addMarkers([marker]);
-                console.log(marker);
-
             }
+            clusterer.addMarkers([marker]);
         });
         </c:forEach>
-        console.log(clusterer);
-
 
         var list = ("<li id= 'all_items' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "복지기관" + "(" + trIndex + ")</a></li>"
             + "<li id ='items_1' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "장애인" + "(" + disabled_cnt + ")</a></li>"
