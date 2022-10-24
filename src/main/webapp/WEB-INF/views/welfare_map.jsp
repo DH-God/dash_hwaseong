@@ -104,7 +104,7 @@
                                 <h4>복지시설</h4>
                                 <div class="checklist">
                                     <div>
-                                        <label><input type="checkbox" class="checkbox all" checked><p><em></em><span>전체</span></p></label>
+                                        <label><input type="checkbox" class="checkbox all" onclick="click_checkBox" checked><p><em></em><span>전체</span></p></label>
                                         <label><input type="checkbox" class="checkbox type1" checked><p><em></em><span>장애인</span></p></label>
                                         <label><input type="checkbox" class="checkbox type2" checked><p><em></em><span>보건의료시설</span></p></label>
                                         <label><input type="checkbox" class="checkbox type3" checked><p><em></em><span>여성/다문화</span></p></label>
@@ -213,7 +213,6 @@
         $('.checkbox.all').click(function(){
             if($(this).is(':checked')){
                 $('.checkbox').prop('checked', true);
-
             }else{
                 $('.checkbox').prop('checked', false);
                 console.log(22);
@@ -233,6 +232,170 @@
         })
 
     })
+
+    window.onload = () => {
+        let trIndex = 0;
+        let old_men_cnt = 0;
+        let integrated_service_cnt = 0;
+        let children_and_youth_cnt = 0;
+        let women_and_multiculturalism_cnt = 0;
+        let health_and_medical_facilities = 0;
+        let disabled_cnt = 0;
+
+        let tbody = document.getElementById('tbody');
+        let menu_option = document.getElementById('menu_option');
+        let crk5, q3rp, ehx4, cqv2, b958 = '';
+        // var iwContents = [];
+        var markers = [];
+
+        var crk5_ = [];
+        var q3rp_ = [];
+        var cqv2_ = [];
+        var content='';
+
+        <c:forEach items="${data}" var="item">
+        crk5 = ${item.dataCont}['crk5']; //구분
+        q3rp = ${item.dataCont}['q3rp']; //기관명
+        ehx4 = ${item.dataCont}['ehx4']; //상세설명
+        cqv2 = ${item.dataCont}['cqv2']; //주소
+        b958 = ${item.dataCont}['b958']; //연락처
+
+        q3rp_.push(q3rp);
+        crk5_.push(crk5);
+        cqv2_.push(cqv2)
+
+        var data = ("<tr id=" + trIndex + " onclick=click_data(this)" + ">" +
+            "<td class='crk5'>" + crk5 + "</td>" +
+            "<td>" + q3rp + "</td>" +
+            "<td>" + ehx4 + "</td>" +
+            "<td>" + cqv2 + "</td>" +
+            "<td>" + b958 + "</td>" +
+            "</tr>");
+
+        tbody.insertAdjacentHTML('afterbegin', data);
+
+        trIndex++;
+
+        switch(crk5) {
+            case '어르신': old_men_cnt ++; break;
+            case '통합서비스': integrated_service_cnt ++; break;
+            case '아동 청소년': children_and_youth_cnt ++; break;
+            case '여성 다문화': women_and_multiculturalism_cnt ++; break;
+            case '보건의료시설': health_and_medical_facilities ++; break;
+            case '장애인': disabled_cnt ++; break;
+        }
+
+        </c:forEach>
+
+        var list = ("<li id= 'all_items' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "복지기관" + "(" + trIndex + ")</a></li>"
+            + "<li id ='items_1' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "장애인" + "(" + disabled_cnt + ")</a></li>"
+            + "<li id='items_2' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "보건의료시설" + "(" + health_and_medical_facilities + ")</a></li>"
+            + "<li id='items_3' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "여성/다문화" + "(" + women_and_multiculturalism_cnt + ")</a></li>"
+            + "<li id='items_4' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "아동/청소년" + "(" + children_and_youth_cnt + ")</a></li>"
+            + "<li id='items_5' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "통합서비스" + "(" + integrated_service_cnt + ")</a></li>"
+            + "<li id='items_6' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "어르신" + "(" + old_men_cnt + ")</a></li>");
+
+        menu_option.insertAdjacentHTML('afterbegin', list);
+        console.log(q3rp_);
+
+
+        // 주소로 좌표를 검색합니다
+        // console.log(cqv2)
+for(let idx=0; idx < trIndex; idx++) {
+    geocoder.addressSearch(cqv2_[idx], function (result, status) {
+
+        var iwContent1 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">' +
+            '<div class="marker"><img src="img/common/marker1.svg" alt="주황색마커"></div>' +
+            '<div class="tit">' + q3rp_[idx] + '</div>' +
+            '</div>';
+
+        var iwContent2 = '<div class="marker-box type2 active" style="left: 20%; top:25%; ">' +
+            '<div class="marker"><img src="img/common/marker2.svg" alt="하늘색마커"></div>' +
+            '<div class="tit">' + q3rp_[idx] + '</div>' +
+            '</div>';
+
+        var iwContent3 = '<div class="marker-box type3 active" style="left: 20%; top:25%; ">' +
+            '<div class="marker"><img src="img/common/marker3.svg" alt="분홍색마커"></div>' +
+            '<div class="tit">' + q3rp_[idx] + '</div>' +
+            '</div>';
+
+        var iwContent4 = '<div class="marker-box type4 active" style="left: 20%; top:25%; ">' +
+            '<div class="marker"><img src="img/common/marker4.svg" alt="초록색마커"></div>' +
+            '<div class="tit">' + q3rp_[idx] + '</div>' +
+            '</div>'
+
+        var iwContent5 = '<div class="marker-box type5 active" style="left: 20%; top:25%; ">' +
+            '<div class="marker"><img src="img/common/marker5.svg" alt="갈색마커"></div>' +
+            '<div class="tit">' + q3rp_[idx] + '</div>' +
+            '</div>';
+
+        var iwContent6 = '<div class="marker-box type6 active" style="left: 20%; top:25%; ">' +
+            '<div class="marker"><img src="img/common/marker6.svg" alt="황토색마커"></div>' +
+            '<div class="tit">' + q3rp_[idx] + '</div>' +
+            '</div>';
+
+        switch (crk5_[idx]) {
+            case '어르신':
+                content = iwContent6;
+                break;
+            case '통합서비스':
+                content = iwContent5;
+                break;
+            case '아동 청소년':
+                content = iwContent4;
+                break;
+            case '여성 다문화':
+                content = iwContent3;
+                break;
+            case '보건의료시설':
+                content = iwContent2;
+                break;
+            case '장애인':
+                content = iwContent1;
+                break;
+        }
+
+        // 정상적으로 검색이 완료됐으면
+        if (status === kakao.maps.services.Status.OK) {
+            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            // 결과값으로 받은 위치를 마커로 표시합니다
+            var marker = new kakao.maps.Marker({
+                position: coords
+            });
+
+            // console.log(marker);
+            // console.log(content);
+            // 커스텀 오버레이를 생성합니다
+            var customOverlay = new kakao.maps.CustomOverlay({
+                // map: map,
+                position: marker.getPosition(),
+                content: content,
+            });
+
+            // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+            kakao.maps.event.addListener(marker, 'click', function () {
+                customOverlay.setMap(map);
+            });
+
+            //생성된 마커를 배열에 넣는다.
+            markers.push(marker);
+
+
+        }
+
+
+        // // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
+        // function closeOverlay() {
+        //     customOverlay.setMap(null);
+        // }
+
+        clusterer.addMarkers(markers);
+
+    });
+    }
+    }
+
+
 
     let change_data = (t) => {
         var className = document.getElementsByClassName('crk5');
@@ -263,37 +426,6 @@
     let before_id ='';
 
     const click_data = (t) => {
-    //
-    //     var iwContent1 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">'+
-    //         '<div class="marker"><img src="img/common/marker1.svg" alt="주황색마커"></div>'+
-    //         '<div class="tit">화성시니어클럽</div>'+
-    //         '</div>'
-    //
-    //     var iwContent2 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">'+
-    //         '<div class="marker"><img src="img/common/marker2.svg" alt="주황색마커"></div>'+
-    //         '<div class="tit">화성시니어클럽</div>'+
-    //         '</div>'
-    //
-    //     var iwContent3 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">'+
-    //         '<div class="marker"><img src="img/common/marker3.svg" alt="주황색마커"></div>'+
-    //         '<div class="tit">화성시니어클럽</div>'+
-    //         '</div>'
-    //
-    //     var iwContent4 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">'+
-    //         '<div class="marker"><img src="img/common/marker4.svg" alt="주황색마커"></div>'+
-    //         '<div class="tit">화성시니어클럽</div>'+
-    //         '</div>'
-    //
-    //     var iwContent5 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">'+
-    //         '<div class="marker"><img src="img/common/marker5.svg" alt="주황색마커"></div>'+
-    //         '<div class="tit">화성시니어클럽</div>'+
-    //         '</div>'
-    //
-    //     var iwContent6 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">'+
-    //         '<div class="marker"><img src="img/common/marker6.svg" alt="주황색마커"></div>'+
-    //         '<div class="tit">화성시니어클럽</div>'+
-    //         '</div>'
-
 
         let address = document.getElementById(t.id).children[3].textContent
         if(before_id!==''){
@@ -317,14 +449,6 @@
             }
             else {console.log(status)}
         });
-
-        // 인포윈도우를 생성합니다
-        // var infowindow = new kakao.maps.InfoWindow({
-        //     position : iwPosition,
-        //     content : iwContent
-        // });
-        // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
-        // infowindow.open(map, marker);
 
     }
 
@@ -356,13 +480,12 @@
 
                 for (let b=0; b < data.features[a].geometry.coordinates.length; b++) {
                     for(let c=0; c<data.features[a].geometry.coordinates[b][0].length; c++) {
-                        // console.log(data.features[a].properties.name);
-                        // console.log(data.features[a].geometry.coordinates[b][0][c][0]);
+
                         paths.push(new kakao.maps.LatLng(data.features[a].geometry.coordinates[b][0][c][1], data.features[a].geometry.coordinates[b][0][c][0]));
                     }
                     path.push(paths);
                     paths = [];
-                    // console.log('_______________________________')
+
                 }
             }
 
@@ -375,7 +498,7 @@
                }
             }
            areas.push({name : data.features[a].properties.name, path : [...path]})
-    
+
             path = []
 
         }
@@ -383,7 +506,7 @@
             displayArea(areas[i])
         }
     });
-    
+
 
     var container = document.getElementById('map');
     var options = {
@@ -409,46 +532,44 @@
             fillOpacity: 0.5 // 채우기 불투명도 입니다
         })
 
-    // 다각형에 mouseover 이벤트를 등록하고 이벤트가 발생하면 폴리곤의 채움색을 변경합니다
-    // 지역명을 표시하는 커스텀오버레이를 지도위에 표시합니다
-    kakao.maps.event.addListener(polygon, 'mouseover', function(mouseEvent) {
-        polygon.setOptions({fillColor: '#09f'});
 
-        customOverlay.setContent('<div class="area">' + area.name + '</div>');
+        // 다각형에 mouseover 이벤트를 등록하고 이벤트가 발생하면 폴리곤의 채움색을 변경합니다
+        // 지역명을 표시하는 커스텀오버레이를 지도위에 표시합니다
+        kakao.maps.event.addListener(polygon, 'mouseover', function(mouseEvent) {
+            polygon.setOptions({fillColor: '#09f'});
 
-        customOverlay.setPosition(mouseEvent.latLng);
-        customOverlay.setMap(map);
-    });
+            customOverlay.setContent('<div class="area">' + area.name + '</div>');
 
-    // // 다각형에 mousemove 이벤트를 등록하고 이벤트가 발생하면 커스텀 오버레이의 위치를 변경합니다
-    // kakao.maps.event.addListener(polygon, 'mousemove', function(mouseEvent) {
-    //
-    //     customOverlay.setPosition(mouseEvent.latLng);
-    // });
-    //
-    // 다각형에 mouseout 이벤트를 등록하고 이벤트가 발생하면 폴리곤의 채움색을 원래색으로 변경합니다
-    // 커스텀 오버레이를 지도에서 제거합니다
-    kakao.maps.event.addListener(polygon, 'mouseout', function() {
-        polygon.setOptions({fillColor: '#fff'});
-        customOverlay.setMap(null);
-    });
+            customOverlay.setPosition(mouseEvent.latLng);
+            customOverlay.setMap(map);
+        });
 
-    // // 다각형에 click 이벤트를 등록하고 이벤트가 발생하면 다각형의 이름과 면적을 인포윈도우에 표시합니다
-    // kakao.maps.event.addListener(polygon, 'click', function(mouseEvent) {
-    //     var content = '<div class="info">' +
-    //         '   <div class="title">' + area.name + '</div>' +
-    //         '   <div class="size">총 면적 : 약 ' + Math.floor(polygon.getArea()) + ' m<sup>2</sup></div>' +
-    //         '</div>';
-    //
-    //     infowindow.setContent(content);
-    //     infowindow.setPosition(mouseEvent.latLng);
-    //     infowindow.setMap(map);
-    // });
+        // // 다각형에 mousemove 이벤트를 등록하고 이벤트가 발생하면 커스텀 오버레이의 위치를 변경합니다
+        // kakao.maps.event.addListener(polygon, 'mousemove', function(mouseEvent) {
+        //
+        //     customOverlay.setPosition(mouseEvent.latLng);
+        // });
+        //
+        // 다각형에 mouseout 이벤트를 등록하고 이벤트가 발생하면 폴리곤의 채움색을 원래색으로 변경합니다
+
+        // 커스텀 오버레이를 지도에서 제거합니다
+        kakao.maps.event.addListener(polygon, 'mouseout', function() {
+            polygon.setOptions({fillColor: '#fff'});
+            customOverlay.setMap(null);
+        });
+
+        // // 다각형에 click 이벤트를 등록하고 이벤트가 발생하면 다각형의 이름과 면적을 인포윈도우에 표시합니다
+        // kakao.maps.event.addListener(polygon, 'click', function(mouseEvent) {
+        //     var content = '<div class="info">' +
+        //         '   <div class="title">' + area.name + '</div>' +
+        //         '   <div class="size">총 면적 : 약 ' + Math.floor(polygon.getArea()) + ' m<sup>2</sup></div>' +
+        //         '</div>';
+        //
+        //     infowindow.setContent(content);
+        //     infowindow.setPosition(mouseEvent.latLng);
+        //     infowindow.setMap(map);
+        // });
     }
-
-    // 주소-좌표 변환 객체를 생성합니다
-    var geocoder = new kakao.maps.services.Geocoder();
-    // var markers = [];
 
     // 마커 클러스터러를 생성합니다
     var clusterer = new kakao.maps.MarkerClusterer({
@@ -456,75 +577,21 @@
         averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
         minLevel: 8 // 클러스터 할 최소 지도 레벨
     });
+    // 주소-좌표 변환 객체를 생성합니다
+    var geocoder = new kakao.maps.services.Geocoder();
+    const checkBox_all = document.querySelector("input.all");
+    const checkBox_type1 = document.querySelector("input.type1");
+    const checkBox_type2= document.querySelector("input.type2");
+    const checkBox_type3 = document.querySelector("input.type3");
+    const checkBox_type4 = document.querySelector("input.type4");
+    const checkBox_type5 = document.querySelector("input.type5");
+    const checkBox_type6 = document.querySelector("input.type6");
 
+    const click_checkBox = () => {
+        customOverlay.setMap(null);
 
-    window.onload = () => {
-
-        let trIndex = 0;
-        let old_men_cnt = 0;
-        let integrated_service_cnt = 0;
-        let children_and_youth_cnt = 0;
-        let women_and_multiculturalism_cnt = 0;
-        let health_and_medical_facilities = 0;
-        let disabled_cnt = 0;
-
-        let tbody = document.getElementById('tbody');
-        let menu_option = document.getElementById('menu_option');
-        let crk5, q3rp, ehx4, cqv2, b958 = '';
-
-        <c:forEach items="${data}" var="item">
-        crk5 = ${item.dataCont}['crk5']; //구분
-        q3rp = ${item.dataCont}['q3rp']; //기관명
-        ehx4 = ${item.dataCont}['ehx4']; //상세설명
-        cqv2 = ${item.dataCont}['cqv2']; //주소
-        b958 = ${item.dataCont}['b958']; //연락처
-
-        var data = ("<tr id=" + trIndex + " onclick=click_data(this)" + ">" +
-            "<td class='crk5'>" + crk5 + "</td>" +
-            "<td>" + q3rp + "</td>" +
-            "<td>" + ehx4 + "</td>" +
-            "<td>" + cqv2 + "</td>" +
-            "<td>" + b958 + "</td>" +
-            "</tr>");
-
-        tbody.insertAdjacentHTML('afterbegin', data);
-
-        trIndex++;
-
-        switch(${item.dataCont}['crk5']) {
-            case '어르신': old_men_cnt ++; break;
-            case '통합서비스': integrated_service_cnt ++; break;
-            case '아동 청소년': children_and_youth_cnt ++; break;
-            case '여성 다문화': women_and_multiculturalism_cnt ++; break;
-            case '보건의료시설': health_and_medical_facilities ++; break;
-            case '장애인': disabled_cnt ++; break;
-        }
-
-        // 주소로 좌표를 검색합니다
-        geocoder.addressSearch(cqv2, function(result, status) {
-            // 정상적으로 검색이 완료됐으면
-            if (status === kakao.maps.services.Status.OK) {
-                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-                // 결과값으로 받은 위치를 마커로 표시합니다
-                var marker = new kakao.maps.Marker({
-                    position: coords
-                });
-            }
-            clusterer.addMarkers([marker]);
-        });
-        </c:forEach>
-
-        var list = ("<li id= 'all_items' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "복지기관" + "(" + trIndex + ")</a></li>"
-            + "<li id ='items_1' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "장애인" + "(" + disabled_cnt + ")</a></li>"
-            + "<li id='items_2' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "보건의료시설" + "(" + health_and_medical_facilities + ")</a></li>"
-            + "<li id='items_3' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "여성/다문화" + "(" + women_and_multiculturalism_cnt + ")</a></li>"
-            + "<li id='items_4' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "아동/청소년" + "(" + children_and_youth_cnt + ")</a></li>"
-            + "<li id='items_5' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "통합서비스" + "(" + integrated_service_cnt + ")</a></li>"
-            + "<li id='items_6' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "어르신" + "(" + old_men_cnt + ")</a></li>");
-
-        menu_option.insertAdjacentHTML('afterbegin', list);
     }
+
 </script>
 
 </body>
