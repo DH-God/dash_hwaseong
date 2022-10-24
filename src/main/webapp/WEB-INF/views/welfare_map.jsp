@@ -302,6 +302,9 @@
         // 주소로 좌표를 검색합니다
         // console.log(cqv2)
 for(let idx=0; idx < trIndex; idx++) {
+
+    var clickedOverlay = null;
+
     geocoder.addressSearch(cqv2_[idx], function (result, status) {
 
         var iwContent1 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">' +
@@ -363,18 +366,22 @@ for(let idx=0; idx < trIndex; idx++) {
                 position: coords
             });
 
-            // console.log(marker);
-            // console.log(content);
+
             // 커스텀 오버레이를 생성합니다
             var customOverlay = new kakao.maps.CustomOverlay({
                 // map: map,
                 position: marker.getPosition(),
                 content: content,
+                removable : true
             });
 
             // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
             kakao.maps.event.addListener(marker, 'click', function () {
+                if(clickedOverlay) {
+                    clickedOverlay.setMap(null); //이미 열러있는 오베레이가 있으면 닫는다
+                }
                 customOverlay.setMap(map);
+                clickedOverlay = customOverlay;
             });
 
             //생성된 마커를 배열에 넣는다.
@@ -384,10 +391,10 @@ for(let idx=0; idx < trIndex; idx++) {
         }
 
 
-        // // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
-        // function closeOverlay() {
-        //     customOverlay.setMap(null);
-        // }
+        // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다
+        function closeOverlay() {
+            customOverlay.setMap(null);
+        }
 
         clusterer.addMarkers(markers);
 
@@ -544,13 +551,6 @@ for(let idx=0; idx < trIndex; idx++) {
             customOverlay.setMap(map);
         });
 
-        // // 다각형에 mousemove 이벤트를 등록하고 이벤트가 발생하면 커스텀 오버레이의 위치를 변경합니다
-        // kakao.maps.event.addListener(polygon, 'mousemove', function(mouseEvent) {
-        //
-        //     customOverlay.setPosition(mouseEvent.latLng);
-        // });
-        //
-        // 다각형에 mouseout 이벤트를 등록하고 이벤트가 발생하면 폴리곤의 채움색을 원래색으로 변경합니다
 
         // 커스텀 오버레이를 지도에서 제거합니다
         kakao.maps.event.addListener(polygon, 'mouseout', function() {
@@ -558,17 +558,6 @@ for(let idx=0; idx < trIndex; idx++) {
             customOverlay.setMap(null);
         });
 
-        // // 다각형에 click 이벤트를 등록하고 이벤트가 발생하면 다각형의 이름과 면적을 인포윈도우에 표시합니다
-        // kakao.maps.event.addListener(polygon, 'click', function(mouseEvent) {
-        //     var content = '<div class="info">' +
-        //         '   <div class="title">' + area.name + '</div>' +
-        //         '   <div class="size">총 면적 : 약 ' + Math.floor(polygon.getArea()) + ' m<sup>2</sup></div>' +
-        //         '</div>';
-        //
-        //     infowindow.setContent(content);
-        //     infowindow.setPosition(mouseEvent.latLng);
-        //     infowindow.setMap(map);
-        // });
     }
 
     // 마커 클러스터러를 생성합니다
