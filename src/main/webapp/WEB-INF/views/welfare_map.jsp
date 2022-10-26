@@ -244,7 +244,7 @@
         crk5_.push(crk5);
         cqv2_.push(cqv2)
 
-        var data = ("<tr id=" + trIndex + " onclick=click_data(this)" + ">" +
+        var data = ("<tr id=" + trIndex + " name='data_item'" + " onclick=click_data(this)" + ">" +
             "<td class='crk5'>" + crk5 + "</td>" +
             "<td>" + q3rp + "</td>" +
             "<td>" + ehx4 + "</td>" +
@@ -359,16 +359,22 @@ for(let idx=0; idx < trIndex; idx++) {
             // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다 데이터 선택
             kakao.maps.event.addListener(marker, 'click', function () {
                 const customOverlay_name = stringToHTML(customOverlay.cc).children[0].children[1].textContent
+                const data_items = document.getElementsByName('data_item');
 
                 if(clickedOverlay) {
                     clickedOverlay.setMap(null); //이미 열러있는 오베레이가 있으면 닫는다
                 }
-                // for(q3rp of q3rp_) {
-                // if(customOverlay_name===q3rp) {
-                //     document.getElementBy().className = "active";
-                //
-                // }
-                // }
+
+                for(let data_item of data_items) {
+                    if(customOverlay_name===data_item.children[1].textContent) {
+                        data_item.className='active';
+                        data_item.scrollIntoView();
+                    }
+                    else {
+                        data_item.className='';
+                    }
+                }
+
 
                 customOverlay.setMap(map);
                 clickedOverlay = customOverlay;
