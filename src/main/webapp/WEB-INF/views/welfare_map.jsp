@@ -107,10 +107,6 @@
                                         <label><input type="checkbox" class="checkbox type4" value="type4" onchange="change_checkBox()" checked><p><em></em><span>아동/청소년</span></p></label>
                                         <label><input type="checkbox" class="checkbox type5" value="type5" onchange="change_checkBox()" checked><p><em></em><span>통합서비스</span></p></label>
                                         <label><input type="checkbox" class="checkbox type6" value="type6" onchange="change_checkBox()" checked><p><em></em><span>어르신</span></p></label>
-                                        <p align= "center">
-                                            <button onclick="zoomOut()" style="margin: 0 20px; font-size:20px; background-color: #fff; color: #0f0e19">-</button>
-                                            <button onclick="zoomIn()" style=" margin: 0 20px; font-size:20px; background-color: #fff; color: #0f0e19;">+</button>
-                                        </p>
                                     </div>
                                 </div>
 
@@ -585,30 +581,18 @@ for(let idx=0; idx < trIndex; idx++) {
         customOverlay = new kakao.maps.CustomOverlay({}),
         infowindow = new kakao.maps.InfoWindow({removable: true});
 
+    // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
+    var mapTypeControl = new kakao.maps.MapTypeControl();
 
-    // 지도 레벨은 지도의 확대 수준을 의미합니다
-    // 지도 레벨은 1부터 14레벨이 있으며 숫자가 작을수록 지도 확대 수준이 높습니다
-    function zoomIn() {
-        // 현재 지도의 레벨을 얻어옵니다
-        var level = map.getLevel();
+    // 지도에 컨트롤을 추가해야 지도위에 표시됩니다
+    // kakao.maps.ControlPosition은 컨트롤이 표시될 위치를 정의하는데 TOPRIGHT는 오른쪽 위를 의미합니다
+    map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 
-        // 지도를 1레벨 내립니다 (지도가 확대됩니다)
-        map.setLevel(level - 1);
+    // 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
+    var zoomControl = new kakao.maps.ZoomControl();
+    map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-        // 지도 레벨을 표시합니다
-        displayLevel();
-    }
 
-    function zoomOut() {
-        // 현재 지도의 레벨을 얻어옵니다
-        var level = map.getLevel();
-
-        // 지도를 1레벨 올립니다 (지도가 축소됩니다)
-        map.setLevel(level + 1);
-
-        // 지도 레벨을 표시합니다
-        displayLevel();
-    }
 
     function displayArea(area) {
         var polygon = new kakao.maps.Polygon({
