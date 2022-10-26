@@ -95,6 +95,7 @@
                         <div class="map-wrap">
                             <div id="map"  style="border:0; width:100%; height:100%;">
                             </div>
+
                             <div class="map-infomation">
                                 <h4>복지시설</h4>
                                 <div class="checklist">
@@ -106,12 +107,20 @@
                                         <label><input type="checkbox" class="checkbox type4" value="type4" onchange="change_checkBox()" checked><p><em></em><span>아동/청소년</span></p></label>
                                         <label><input type="checkbox" class="checkbox type5" value="type5" onchange="change_checkBox()" checked><p><em></em><span>통합서비스</span></p></label>
                                         <label><input type="checkbox" class="checkbox type6" value="type6" onchange="change_checkBox()" checked><p><em></em><span>어르신</span></p></label>
+                                        <p align= "center">
+                                            <button onclick="zoomOut()" style="margin: 0 20px; font-size:20px; background-color: #fff; color: #0f0e19">-</button>
+                                            <button onclick="zoomIn()" style=" margin: 0 20px; font-size:20px; background-color: #fff; color: #0f0e19;">+</button>
+                                        </p>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+
                 <!-- // 공통 컨텐츠 박스 -->
 
             </div>
@@ -526,7 +535,7 @@ for(let idx=0; idx < trIndex; idx++) {
         rawFile.send(null);
     }
 
-    var areas = [];
+    const areas = [];
     //json 함수 사용법
     readJSON("json/hs_polygon.json", function(text){
         const json_data = JSON.parse(text);
@@ -577,6 +586,29 @@ for(let idx=0; idx < trIndex; idx++) {
         infowindow = new kakao.maps.InfoWindow({removable: true});
 
 
+    // 지도 레벨은 지도의 확대 수준을 의미합니다
+    // 지도 레벨은 1부터 14레벨이 있으며 숫자가 작을수록 지도 확대 수준이 높습니다
+    function zoomIn() {
+        // 현재 지도의 레벨을 얻어옵니다
+        var level = map.getLevel();
+
+        // 지도를 1레벨 내립니다 (지도가 확대됩니다)
+        map.setLevel(level - 1);
+
+        // 지도 레벨을 표시합니다
+        displayLevel();
+    }
+
+    function zoomOut() {
+        // 현재 지도의 레벨을 얻어옵니다
+        var level = map.getLevel();
+
+        // 지도를 1레벨 올립니다 (지도가 축소됩니다)
+        map.setLevel(level + 1);
+
+        // 지도 레벨을 표시합니다
+        displayLevel();
+    }
 
     function displayArea(area) {
         var polygon = new kakao.maps.Polygon({
@@ -589,6 +621,8 @@ for(let idx=0; idx < trIndex; idx++) {
             fillColor: '#fff', // 채우기 색깔입니다
             fillOpacity: 0.5 // 채우기 불투명도 입니다
         })
+
+
 
 
         // 다각형에 mouseover 이벤트를 등록하고 이벤트가 발생하면 폴리곤의 채움색을 변경합니다
