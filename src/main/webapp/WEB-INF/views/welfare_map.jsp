@@ -42,12 +42,7 @@
                     <li class="active">
                         <a href="#" class="btn-dep1 flip">복지맵</a>
                         <ul class="dep2" style="display: block" id="menu_option">
-<%--                            <li><a href="#" class="btn-dep2">장애인 (8)</a></li>--%>
-<%--                            <li><a href="#" class="btn-dep2">보건의료시설 (8)</a></li>--%>
-<%--                            <li><a href="#" class="btn-dep2">여성/다문화 (8)</a></li>--%>
-<%--                            <li><a href="#" class="btn-dep2">아동/청소년 (8)</a></li>--%>
-<%--                            <li><a href="#" class="btn-dep2">통합서비스 (8)</a></li>--%>
-<%--                            <li><a href="#" class="btn-dep2">어르신 (8)</a></li>--%>
+
                         </ul>
                     </li>
                     <li>
@@ -104,13 +99,13 @@
                                 <h4>복지시설</h4>
                                 <div class="checklist">
                                     <div>
-                                        <label><input type="checkbox" class="checkbox all" value="all" checked><p><em></em><span>전체</span></p></label>
-                                        <label><input type="checkbox" class="checkbox type1" value="type1" checked><p><em></em><span>장애인</span></p></label>
-                                        <label><input type="checkbox" class="checkbox type2" value="type2" checked><p><em></em><span>보건의료시설</span></p></label>
-                                        <label><input type="checkbox" class="checkbox type3" value="type3" checked><p><em></em><span>여성/다문화</span></p></label>
-                                        <label><input type="checkbox" class="checkbox type4" value="type4" checked><p><em></em><span>아동/청소년</span></p></label>
-                                        <label><input type="checkbox" class="checkbox type5" value="type5" checked><p><em></em><span>통합서비스</span></p></label>
-                                        <label><input type="checkbox" class="checkbox type6" value="type6" checked><p><em></em><span>어르신</span></p></label>
+                                        <label><input type="checkbox" class="checkbox all" value="all" onchange="change_checkBox()" checked><p><em></em><span>전체</span></p></label>
+                                        <label><input type="checkbox" class="checkbox type1" value="type1" onchange="change_checkBox()" checked><p><em></em><span>장애인</span></p></label>
+                                        <label><input type="checkbox" class="checkbox type2" value="type2" onchange="change_checkBox()" checked><p><em></em><span>보건의료시설</span></p></label>
+                                        <label><input type="checkbox" class="checkbox type3" value="type3" onchange="change_checkBox()" checked><p><em></em><span>여성/다문화</span></p></label>
+                                        <label><input type="checkbox" class="checkbox type4" value="type4" onchange="change_checkBox()" checked><p><em></em><span>아동/청소년</span></p></label>
+                                        <label><input type="checkbox" class="checkbox type5" value="type5" onchange="change_checkBox()" checked><p><em></em><span>통합서비스</span></p></label>
+                                        <label><input type="checkbox" class="checkbox type6" value="type6" onchange="change_checkBox()" checked><p><em></em><span>어르신</span></p></label>
                                     </div>
                                 </div>
                             </div>
@@ -143,13 +138,7 @@
                                 </tr>
                                 </thead>
                                 <tbody id="tbody">
-<%--                                <tr>--%>
-<%--                                    <td><c:out value="1" /></td>--%>
-<%--                                    <td><c:out value="1" /></td>--%>
-<%--                                    <td><c:out value="1" /></td>--%>
-<%--                                    <td><c:out value="1" /></td>--%>
-<%--                                    <td><button onclick="click_data()">click_data</button></td>--%>
-<%--                                </tr>--%>
+
                                 </tbody>
                             </table>
                         </div>
@@ -239,7 +228,8 @@
     let clickedOverlay = null;
     const customOverlays = [];
     const classNames = document.getElementsByClassName('crk5');
-    // console.log(customOverlays);
+    const checkboxes = document.querySelectorAll('input[type=checkbox][checked]');
+
 
     window.onload = () => {
 
@@ -348,32 +338,42 @@ for(let idx=0; idx < trIndex; idx++) {
 
         // 정상적으로 검색이 완료됐으면
         if (status === kakao.maps.services.Status.OK) {
-            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
             // 결과값으로 받은 위치를 마커로 표시합니다
-            var marker = new kakao.maps.Marker({
+            const marker = new kakao.maps.Marker({
                 position: coords
             });
 
 
             // 커스텀 오버레이를 생성합니다
-            var customOverlay = new kakao.maps.CustomOverlay({
+            const customOverlay = new kakao.maps.CustomOverlay({
                 // map: map,
                 position: marker.getPosition(),
                 content: content,
-                removable : true,
+                removable: true,
                 xAnchor: 1
             });
 
 
-            // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다
+            // 마커를 클릭했을 때 커스텀 오버레이를 표시합니다 데이터 선택
             kakao.maps.event.addListener(marker, 'click', function () {
+                const customOverlay_name = stringToHTML(customOverlay.cc).children[0].children[1].textContent
+
                 if(clickedOverlay) {
                     clickedOverlay.setMap(null); //이미 열러있는 오베레이가 있으면 닫는다
                 }
+                // for(q3rp of q3rp_) {
+                // if(customOverlay_name===q3rp) {
+                //     document.getElementBy().className = "active";
+                //
+                // }
+                // }
+
                 customOverlay.setMap(map);
                 clickedOverlay = customOverlay;
                 map.setCenter(marker.getPosition());
+
 
             });
 
@@ -405,7 +405,7 @@ for(let idx=0; idx < trIndex; idx++) {
 
         }
         else {
-            console.log('no')
+            console.log('좌표변환실패')
         }
 
         clusterer.addMarkers(markers);
@@ -449,14 +449,24 @@ for(let idx=0; idx < trIndex; idx++) {
                     clusterer.addMarkers(markers);
                 }
         }
-        clickedOverlay.setMap(null); //이미 열러있는 오베레이가 있으면 닫는다
+            if(clickedOverlay) {
+                clickedOverlay.setMap(null); //이미 열러있는 오베레이가 있으면 닫는다
+            }
     }
+
+    const stringToHTML =  (str) => {
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(str, 'text/html');
+        return doc.body;
+    };
 
     let before_id ='';
 
+
     const click_data = (t) => {
 
-        let address = document.getElementById(t.id).children[3].textContent
+        let name = document.getElementById(t.id).children[1].textContent;
+        let address = document.getElementById(t.id).children[3].textContent;
         if(before_id!==''){
             document.getElementById(before_id).classList.remove("active");
             document.getElementById(t.id).className = "active";
@@ -466,28 +476,36 @@ for(let idx=0; idx < trIndex; idx++) {
             before_id = t.id;
         }
 
+        if(clickedOverlay) {
+            clickedOverlay.setMap(null); //이미 열러있는 오베레이가 있으면 닫는다
+        }
+
         // 주소로 좌표를 검색합니다 ps. 도로명 주소 사묭할 경우 검색 결과 없을수 있음 지번주소 사용 추천
         geocoder.addressSearch(address, function(result, status) {
-
             // 정상적으로 검색이 완료됐으면
             if (status === kakao.maps.services.Status.OK) {
+                const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                console.log(customOverlays)
-
+                for (let cto of customOverlays) {
+                    const cto_name = stringToHTML(cto.cc).children[0].children[1].textContent;
+                    if (cto_name ===name) {
+                        if(clickedOverlay) {
+                            clickedOverlay.setMap(null); //이미 열러있는 오베레이가 있으면 닫는다
+                        }
+                        cto.setMap(map);
+                        clickedOverlay = cto;
+                        }
+                    }
+                map.setLevel(1);
                 // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
                 map.setCenter(coords);
-                // clickedOverlay.setMap(null); //이미 열러있는 오베레이가 있으면 닫는다
-                console.log(t.id)
-                console.log(customOverlays[t.id].cc.content);
-                // customOverlays[t.id].setMap(map);
-                // clickedOverlay = customOverlays[t.id]
-            }
-            else {console.log(status)}
+
+                }
+
+            else {console.log('좌표 변환 실패')}
         });
 
     }
-
 
     //json 사용 함수 본문
     function readJSON(file, callback) {
@@ -505,18 +523,18 @@ for(let idx=0; idx < trIndex; idx++) {
     var areas = [];
     //json 함수 사용법
     readJSON("json/hs_polygon.json", function(text){
-        const data = JSON.parse(text);
+        const json_data = JSON.parse(text);
 
         let path= [];
         let paths= [];
-        for ( let a=0; a < data.features.length; a++) {
+        for ( let a=0; a < json_data.features.length; a++) {
 
-            if(data.features[a].geometry.coordinates.length!==1) {
+            if(json_data.features[a].geometry.coordinates.length!==1) {
 
-                for (let b=0; b < data.features[a].geometry.coordinates.length; b++) {
-                    for(let c=0; c<data.features[a].geometry.coordinates[b][0].length; c++) {
+                for (let b=0; b < json_data.features[a].geometry.coordinates.length; b++) {
+                    for(let c=0; c<json_data.features[a].geometry.coordinates[b][0].length; c++) {
 
-                        paths.push(new kakao.maps.LatLng(data.features[a].geometry.coordinates[b][0][c][1], data.features[a].geometry.coordinates[b][0][c][0]));
+                        paths.push(new kakao.maps.LatLng(json_data.features[a].geometry.coordinates[b][0][c][1], json_data.features[a].geometry.coordinates[b][0][c][0]));
                     }
                     path.push(paths);
                     paths = [];
@@ -525,13 +543,13 @@ for(let idx=0; idx < trIndex; idx++) {
             }
 
            else {
-               for(let d=0; d<data.features[a].geometry.coordinates[0][0].length; d++) {
+               for(let d=0; d<json_data.features[a].geometry.coordinates[0][0].length; d++) {
 
-                   path=[...path, new kakao.maps.LatLng(data.features[a].geometry.coordinates[0][0][d][1], data.features[a].geometry.coordinates[0][0][d][0])];
+                   path=[...path, new kakao.maps.LatLng(json_data.features[a].geometry.coordinates[0][0][d][1], json_data.features[a].geometry.coordinates[0][0][d][0])];
 
                }
             }
-           areas.push({name : data.features[a].properties.name, path : [...path]})
+           areas.push({name : json_data.features[a].properties.name, path : [...path]})
 
             path = []
 
@@ -596,58 +614,35 @@ for(let idx=0; idx < trIndex; idx++) {
     // 주소-좌표 변환 객체를 생성합니다
     var geocoder = new kakao.maps.services.Geocoder();
 
-    const checkBox_all = document.querySelector("input.all");
-    const checkBox_type1 = document.querySelector("input.type1");
-    const checkBox_type2= document.querySelector("input.type2");
-    const checkBox_type3 = document.querySelector("input.type3");
-    const checkBox_type4 = document.querySelector("input.type4");
-    const checkBox_type5 = document.querySelector("input.type5");
-    const checkBox_type6 = document.querySelector("input.type6");
+    const change_checkBox = () => {
+        clusterer.clear();
+        for (let checkbox of checkboxes) {
+            const check_value = checkbox.value;
+            for (let className of classNames) {
+            if (checkbox.checked) {
+                switch(check_value) {
+                    case 'type1': clusterer.addMarkers(markers_1); className.textContent==='장애인'?className.parentElement.style.display='':''; break;
+                    case 'type2': clusterer.addMarkers(markers_2); className.textContent==='보건의료시설'?className.parentElement.style.display='':''; break;
+                    case 'type3': clusterer.addMarkers(markers_3); className.textContent==='여성 다문화'?className.parentElement.style.display='':''; break;
+                    case 'type4': clusterer.addMarkers(markers_4); className.textContent==='아동 청소년'?className.parentElement.style.display='':''; break;
+                    case 'type5': clusterer.addMarkers(markers_5); className.textContent==='통합서비스'?className.parentElement.style.display='':''; break;
+                    case 'type6': clusterer.addMarkers(markers_6); className.textContent==='어르신'?className.parentElement.style.display='':''; break;
+                }
+                }
+            else {
+                switch(check_value) {
+                    case 'type1': className.textContent==='장애인'?className.parentElement.style.display='none':''; break;
+                    case 'type2': className.textContent==='보건의료시설'?className.parentElement.style.display='none':''; break;
+                    case 'type3': className.textContent==='여성 다문화'?className.parentElement.style.display='none':''; break;
+                    case 'type4': className.textContent==='아동 청소년'?className.parentElement.style.display='none':''; break;
+                    case 'type5': className.textContent==='통합서비스'?className.parentElement.style.display='none':''; break;
+                    case 'type6': className.textContent==='어르신'?className.parentElement.style.display='none':''; break;
+                }
+            }
+            }
 
-    const testtest = (a, index) => {
-        if(a==='어르신') {
-            return index
         }
-
     }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const checkboxes = document.querySelectorAll('input[type=checkbox]');
-
-        for (let checkbox of checkboxes)
-        {
-            checkbox.addEventListener('change', function(event)
-            {
-                if (event.target.checked) {
-                    for(let className of classNames) {
-                        switch (event.target.value) {
-                            case 'all': className.parentElement.style.display=''; clusterer.addMarkers(markers); break;
-                            case 'type1': className.textContent==='장애인'?className.parentElement.style.display='':''; clusterer.addMarkers(markers_1); break;
-                            case 'type2': className.textContent==='보건의료시설'?className.parentElement.style.display='':''; clusterer.addMarkers(markers_2); break;
-                            case 'type3': className.textContent==='여성 다문화'?className.parentElement.style.display='':''; clusterer.addMarkers(markers_3); break;
-                            case 'type4': className.textContent==='아동 청소년'?className.parentElement.style.display='':''; clusterer.addMarkers(markers_4); break;
-                            case 'type5': className.textContent==='통합서비스'?className.parentElement.style.display='':''; clusterer.addMarkers(markers_5); break;
-                            case 'type6': className.textContent==='어르신'?className.parentElement.style.display='':''; clusterer.addMarkers(markers_6); break;
-                        }
-                    }
-                }
-
-                else {
-                    for(let className of classNames) {
-                        switch (event.target.value) {
-                            case 'all': className.parentElement.style.display='none'; clusterer.clear(); break;
-                            case 'type1': className.textContent==='장애인'?className.parentElement.style.display='none':''; clusterer.clear(); break;
-                            case 'type2': className.textContent==='보건의료시설'?className.parentElement.style.display='none':''; clusterer.clear(); break;
-                            case 'type3': className.textContent==='여성 다문화'?className.parentElement.style.display='none':''; clusterer.clear(); break;
-                            case 'type4': className.textContent==='아동 청소년'?className.parentElement.style.display='none':''; clusterer.clear(); break;
-                            case 'type5': className.textContent==='통합서비스'?className.parentElement.style.display='none':''; clusterer.clear(); break;
-                            case 'type6': className.textContent==='어르신'?className.parentElement.style.display='none':''; clusterer.clear(); break;
-                        }
-                    }
-                }
-            });
-        }
-    }, false);
 
 </script>
 
