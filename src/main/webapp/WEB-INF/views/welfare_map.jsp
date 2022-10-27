@@ -232,6 +232,7 @@
     const customOverlays = [];
     const classNames = document.getElementsByClassName('crk5');
     const checkboxes = document.querySelectorAll('input[type=checkbox][checked]');
+    let before_id ='';
 
 
     window.onload = () => {
@@ -371,6 +372,7 @@ for(let idx=0; idx < trIndex; idx++) {
                 for(let data_item of data_items) {
                     if(customOverlay_name===data_item.children[1].textContent) {
                         data_item.className='active';
+                        before_id=data_item.id;
                         data_item.scrollIntoView();
                     }
                     else {
@@ -425,6 +427,7 @@ for(let idx=0; idx < trIndex; idx++) {
     const change_data = (t) => {
             infowindow.close();
             clusterer.clear();
+            document.getElementById(before_id).classList.remove('active');
             for(let className of classNames) {
                 className.parentElement.style.display='';
 
@@ -466,9 +469,6 @@ for(let idx=0; idx < trIndex; idx++) {
         var doc = parser.parseFromString(str, 'text/html');
         return doc.body;
     };
-
-    let before_id ='';
-
 
     const click_data = (t) => {
         let name = document.getElementById(t.id).children[1].textContent;
@@ -653,6 +653,7 @@ for(let idx=0; idx < trIndex; idx++) {
     const change_checkBox = () => {
         infowindow.close();
         clusterer.clear();
+        document.getElementById(before_id).classList.remove('active');
         if(clickedOverlay) {
             clickedOverlay.setMap(null); //이미 열러있는 오베레이가 있으면 닫는다
         }
