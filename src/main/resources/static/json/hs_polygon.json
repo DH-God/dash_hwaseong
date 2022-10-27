@@ -3,8 +3,8 @@
   "features": [
     {
       "type": "Feature",
-      "total_population": 86890,
-      "Population_increase_compared_to_the_previous_month": 226,
+      "total": 86890,
+      "increase_month": 226,
       "note": "증가",
       "geometry": {
         "type": "MultiPolygon",
@@ -1933,18 +1933,18 @@
       },
       "properties": {
         "name": "봉담읍",
-        "total_population": 86890,
-        "male population": 44092,
-        "female population": 42798,
-        "male_to_female_ratio": 1.03,
-        "Population_increase_compared_to_the_previous_month": 226,
+        "total": 86890,
+        "male": 44092,
+        "female": 42798,
+        "ratio": 1.03,
+        "increase_month": 226,
         "note": "증가"
       }
     },
     {
       "type": "Feature",
-      "total_population": 17630,
-      "Population_increase_compared_to_the_previous_month": 11,
+      "total": 17630,
+      "increase_month": 11,
       "note": "증가",
       "geometry": {
         "type": "MultiPolygon",
@@ -3633,18 +3633,18 @@
       },
       "properties": {
         "name": "우정읍",
-        "total_population": 17630,
-        "male population": 9699,
-        "female population": 7931,
-        "male_to_female_ratio": 1.22,
-        "Population_increase_compared_to_the_previous_month": 11,
+        "total": 17630,
+        "male": 9699,
+        "female": 7931,
+        "ratio": 1.22,
+        "increase_month": 11,
         "note": "증가"
       }
     },
     {
       "type": "Feature",
-      "total_population": 87570,
-      "Population_increase_compared_to_the_previous_month": -120,
+      "total": 87570,
+      "increase_month": -120,
       "note": "감소",
       "geometry": {
         "type": "MultiPolygon",
@@ -4961,18 +4961,18 @@
       },
       "properties": {
         "name": "향남읍",
-        "total_population": 87570,
-        "male population": 46985,
-        "female population": 40585,
-        "male_to_female_ratio": 1.16,
-        "Population_increase_compared_to_the_previous_month": -120,
+        "total": 87570,
+        "male": 46985,
+        "female": 40585,
+        "ratio": 1.16,
+        "increase_month": -120,
         "note": "감소"
       }
     },
     {
       "type": "Feature",
-      "total_population": 43993,
-      "Population_increase_compared_to_the_previous_month": 55,
+      "total": 43993,
+      "increase_month": 55,
       "note": "증가",
       "geometry": {
         "type": "MultiPolygon",
@@ -6329,18 +6329,18 @@
       },
       "properties": {
         "name": "남양읍",
-        "total_population": 43993,
-        "male population": 24050,
-        "female population": 19943,
-        "male_to_female_ratio": 1.2,
-        "Population_increase_compared_to_the_previous_month": 55,
+        "total": 43993,
+        "male": 24050,
+        "female": 19943,
+        "ratio": 1.2,
+        "increase_month": 55,
         "note": "증가"
       }
     },
     {
       "type": "Feature",
-      "total_population": 6932,
-      "Population_increase_compared_to_the_previous_month": -7,
+      "total": 6932,
+      "increase_month": -7,
       "note": "감소",
       "geometry": {
         "type": "MultiPolygon",
@@ -7745,18 +7745,18 @@
       },
       "properties": {
         "name": "매송면",
-        "total_population": 6932,
-        "male population": 3681,
-        "female population": 3251,
-        "male_to_female_ratio": 1.13,
-        "Population_increase_compared_to_the_previous_month": -7,
+        "total": 6932,
+        "male": 3681,
+        "female": 3251,
+        "ratio": 1.13,
+        "increase_month": -7,
         "note": "감소"
       }
     },
     {
       "type": "Feature",
-      "total_population": 6916,
-      "Population_increase_compared_to_the_previous_month": 8,
+      "total": 6916,
+      "increase_month": 8,
       "note": "증가",
       "geometry": {
         "type": "MultiPolygon",
@@ -9045,18 +9045,18 @@
       },
       "properties": {
         "name": "비봉면",
-        "total_population": 6916,
-        "male population": 3921,
-        "female population": 2995,
-        "male_to_female_ratio": 1.31,
-        "Population_increase_compared_to_the_previous_month": 8,
+        "total": 6916,
+        "male": 3921,
+        "female": 2995,
+        "ratio": 1.31,
+        "increase_month": 8,
         "note": "증가"
       }
     },
     {
       "type": "Feature",
-      "total_population": 7112,
-      "Population_increase_compared_to_the_previous_month": -3,
+      "total": 7112,
+      "increase_month": -3,
       "note": "감소",
       "geometry": {
         "type": "MultiPolygon",
@@ -9937,18 +9937,18 @@
       },
       "properties": {
         "name": "마도면",
-        "total_population": 7112,
-        "male population": 4278,
-        "female population": 2834,
-        "male_to_female_ratio": 1.51,
-        "Population_increase_compared_to_the_previous_month": -3,
+        "total": 7112,
+        "male": 4278,
+        "female": 2834,
+        "ratio": 1.51,
+        "increase_month": -3,
         "note": "감소"
       }
     },
     {
       "type": "Feature",
-      "total_population": 11083,
-      "Population_increase_compared_to_the_previous_month": -27,
+      "total": 11083,
+      "increase_month": -27,
       "note": "감소",
       "geometry": {
         "type": "MultiPolygon",
@@ -12595,18 +12595,18 @@
       },
       "properties": {
         "name": "송산면",
-        "total_population": 11083,
-        "male population": 6075,
-        "female population": 5008,
-        "male_to_female_ratio": 1.21,
-        "Population_increase_compared_to_the_previous_month": -27,
+        "total": 11083,
+        "male": 6075,
+        "female": 5008,
+        "ratio": 1.21,
+        "increase_month": -27,
         "note": "감소"
       }
     },
     {
       "type": "Feature",
-      "total_population": 7276,
-      "Population_increase_compared_to_the_previous_month": -4,
+      "total": 7276,
+      "increase_month": -4,
       "note": "감소",
       "geometry": {
         "type": "MultiPolygon",
@@ -15067,18 +15067,18 @@
       },
       "properties": {
         "name": "서신면",
-        "total_population": 7276,
-        "male population": 4028,
-        "female population": 3248,
-        "male_to_female_ratio": 1.24,
-        "Population_increase_compared_to_the_previous_month": -4,
+        "total": 7276,
+        "male": 4028,
+        "female": 3248,
+        "ratio": 1.24,
+        "increase_month": -4,
         "note": "감소"
       }
     },
     {
       "type": "Feature",
-      "total_population": 10075,
-      "Population_increase_compared_to_the_previous_month": -19,
+      "total": 10075,
+      "increase_month": -19,
       "note": "감소",
       "geometry": {
         "type": "MultiPolygon",
@@ -16571,18 +16571,18 @@
       },
       "properties": {
         "name": "팔탄면",
-        "total_population": 10075,
-        "male population": 6143,
-        "female population": 3932,
-        "male_to_female_ratio": 1.56,
-        "Population_increase_compared_to_the_previous_month": -19,
+        "total": 10075,
+        "male": 6143,
+        "female": 3932,
+        "ratio": 1.56,
+        "increase_month": -19,
         "note": "감소"
       }
     },
     {
       "type": "Feature",
-      "total_population": 10309,
-      "Population_increase_compared_to_the_previous_month": -39,
+      "total": 10309,
+      "increase_month": -39,
       "note": "감소",
       "geometry": {
         "type": "MultiPolygon",
@@ -17863,18 +17863,18 @@
       },
       "properties": {
         "name": "장안면",
-        "total_population": 10309,
-        "male population": 5995,
-        "female population": 4314,
-        "male_to_female_ratio": 1.39,
-        "Population_increase_compared_to_the_previous_month": -39,
+        "total": 10309,
+        "male": 5995,
+        "female": 4314,
+        "ratio": 1.39,
+        "increase_month": -39,
         "note": "감소"
       }
     },
     {
       "type": "Feature",
-      "total_population": 4058,
-      "Population_increase_compared_to_the_previous_month": -6,
+      "total": 4058,
+      "increase_month": -6,
       "note": "감소",
       "geometry": {
         "type": "MultiPolygon",
@@ -19963,18 +19963,18 @@
       },
       "properties": {
         "name": "양감면",
-        "total_population": 4058,
-        "male population": 2508,
-        "female population": 1550,
-        "male_to_female_ratio": 1.62,
-        "Population_increase_compared_to_the_previous_month": -6,
+        "total": 4058,
+        "male": 2508,
+        "female": 1550,
+        "ratio": 1.62,
+        "increase_month": -6,
         "note": "감소"
       }
     },
     {
       "type": "Feature",
-      "total_population": 11390,
-      "Population_increase_compared_to_the_previous_month": -44,
+      "total": 11390,
+      "increase_month": -44,
       "note": "감소",
       "geometry": {
         "type": "MultiPolygon",
@@ -21331,18 +21331,18 @@
       },
       "properties": {
         "name": "정남면",
-        "total_population": 11390,
-        "male population": 6645,
-        "female population": 4745,
-        "male_to_female_ratio": 1.4,
-        "Population_increase_compared_to_the_previous_month": -44,
+        "total": 11390,
+        "male": 6645,
+        "female": 4745,
+        "ratio": 1.4,
+        "increase_month": -44,
         "note": "감소"
       }
     },
     {
       "type": "Feature",
-      "total_population": 25195,
-      "Population_increase_compared_to_the_previous_month": 35,
+      "total": 25195,
+      "increase_month": 35,
       "note": "증가",
       "geometry": {
         "type": "MultiPolygon",
@@ -22171,18 +22171,18 @@
       },
       "properties": {
         "name": "새솔동",
-        "total_population": 25195,
-        "male population": 12621,
-        "female population": 12574,
-        "male_to_female_ratio": 1,
-        "Population_increase_compared_to_the_previous_month": 35,
+        "total": 25195,
+        "male": 12621,
+        "female": 12574,
+        "ratio": 1,
+        "increase_month": 35,
         "note": "증가"
       }
     },
     {
       "type": "Feature",
-      "total_population": 43814,
-      "Population_increase_compared_to_the_previous_month": -74,
+      "total": 43814,
+      "increase_month": -74,
       "note": "감소",
       "geometry": {
         "type": "MultiPolygon",
@@ -22687,18 +22687,18 @@
       },
       "properties": {
         "name": "진안동",
-        "total_population": 43814,
-        "male population": 23953,
-        "female population": 19861,
-        "male_to_female_ratio": 1.2,
-        "Population_increase_compared_to_the_previous_month": -74,
+        "total": 43814,
+        "male": 23953,
+        "female": 19861,
+        "ratio": 1.2,
+        "increase_month": -74,
         "note": "감소"
       }
     },
     {
       "type": "Feature",
-      "total_population": 36989,
-      "Population_increase_compared_to_the_previous_month": -19,
+      "total": 36989,
+      "increase_month": -19,
       "note": "감소",
       "geometry": {
         "type": "MultiPolygon",
@@ -22939,18 +22939,18 @@
       },
       "properties": {
         "name": "병점1동",
-        "total_population": 36989,
-        "male population": 19057,
-        "female population": 17932,
-        "male_to_female_ratio": 1.06,
-        "Population_increase_compared_to_the_previous_month": -19,
+        "total": 36989,
+        "male": 19057,
+        "female": 17932,
+        "ratio": 1.06,
+        "increase_month": -19,
         "note": "감소"
       }
     },
     {
       "type": "Feature",
-      "total_population": 23553,
-      "Population_increase_compared_to_the_previous_month": 1,
+      "total": 23553,
+      "increase_month": 1,
       "note": "증가",
       "geometry": {
         "type": "MultiPolygon",
@@ -23203,18 +23203,18 @@
       },
       "properties": {
         "name": "병점2동",
-        "total_population": 23553,
-        "male population": 11475,
-        "female population": 12078,
-        "male_to_female_ratio": 0.95,
-        "Population_increase_compared_to_the_previous_month": 1,
+        "total": 23553,
+        "male": 11475,
+        "female": 12078,
+        "ratio": 0.95,
+        "increase_month": 1,
         "note": "증가"
       }
     },
     {
       "type": "Feature",
-      "total_population": 31316,
-      "Population_increase_compared_to_the_previous_month": -45,
+      "total": 31316,
+      "increase_month": -45,
       "note": "감소",
       "geometry": {
         "type": "MultiPolygon",
@@ -23759,18 +23759,18 @@
       },
       "properties": {
         "name": "반월동",
-        "total_population": 31316,
-        "male population": 15843,
-        "female population": 15473,
-        "male_to_female_ratio": 1.024,
-        "Population_increase_compared_to_the_previous_month": -45,
+        "total": 31316,
+        "male": 15843,
+        "female": 15473,
+        "ratio": 1.024,
+        "increase_month": -45,
         "note": "감소"
       }
     },
     {
       "type": "Feature",
-      "total_population": 16212,
-      "Population_increase_compared_to_the_previous_month": 96,
+      "total": 16212,
+      "increase_month": 96,
       "note": "증가",
       "geometry": {
         "type": "MultiPolygon",
@@ -24403,18 +24403,18 @@
       },
       "properties": {
         "name": "기배동",
-        "total_population": 16212,
-        "male population": 8240,
-        "female population": 7972,
-        "male_to_female_ratio": 1.03,
-        "Population_increase_compared_to_the_previous_month": 96,
+        "total": 16212,
+        "male": 8240,
+        "female": 7972,
+        "ratio": 1.03,
+        "increase_month": 96,
         "note": "증가"
       }
     },
     {
       "type": "Feature",
-      "total_population": 23030,
-      "Population_increase_compared_to_the_previous_month": 23,
+      "total": 23030,
+      "increase_month": 23,
       "note": "증가",
       "geometry": {
         "type": "MultiPolygon",
@@ -25151,18 +25151,18 @@
       },
       "properties": {
         "name": "화산동",
-        "total_population": 23030,
-        "male population": 12148,
-        "female population": 10882,
-        "male_to_female_ratio": 1.11,
-        "Population_increase_compared_to_the_previous_month": 23,
+        "total": 23030,
+        "male": 12148,
+        "female": 10882,
+        "ratio": 1.11,
+        "increase_month": 23,
         "note": "증가"
       }
     },
     {
       "type": "Feature",
-      "total_population": 50934,
-      "Population_increase_compared_to_the_previous_month": -39,
+      "total": 50934,
+      "increase_month": -39,
       "note": "감소",
       "geometry": {
         "type": "MultiPolygon",
@@ -25559,18 +25559,18 @@
       },
       "properties": {
         "name": "동탄1동",
-        "total_population": 50934,
-        "male population": 26388,
-        "female population": 24546,
-        "male_to_female_ratio": 1.08,
-        "Population_increase_compared_to_the_previous_month": -39,
+        "total": 50934,
+        "male": 26388,
+        "female": 24546,
+        "ratio": 1.08,
+        "increase_month": -39,
         "note": "감소"
       }
     },
     {
       "type": "Feature",
-      "total_population": 34853,
-      "Population_increase_compared_to_the_previous_month": 3,
+      "total": 34853,
+      "increase_month": 3,
       "note": "증가",
       "geometry": {
         "type": "MultiPolygon",
@@ -25903,18 +25903,18 @@
       },
       "properties": {
         "name": "동탄2동",
-        "total_population": 34853,
-        "male population": 17237,
-        "female population": 17716,
-        "male_to_female_ratio": 0.97,
-        "Population_increase_compared_to_the_previous_month": 3,
+        "total": 34853,
+        "male": 17237,
+        "female": 17716,
+        "ratio": 0.97,
+        "increase_month": 3,
         "note": "증가"
       }
     },
     {
       "type": "Feature",
-      "total_population": 41778,
-      "Population_increase_compared_to_the_previous_month": -33,
+      "total": 41778,
+      "increase_month": -33,
       "note": "감소",
       "geometry": {
         "type": "MultiPolygon",
@@ -26411,18 +26411,18 @@
       },
       "properties": {
         "name": "동탄3동",
-        "total_population": 41778,
-        "male population": 21567,
-        "female population": 20211,
-        "male_to_female_ratio": 1.067,
-        "Population_increase_compared_to_the_previous_month": -33,
+        "total": 41778,
+        "male": 21567,
+        "female": 20211,
+        "ratio": 1.067,
+        "increase_month": -33,
         "note": "감소"
       }
     },
     {
       "type": "Feature",
-      "total_population": 52859,
-      "Population_increase_compared_to_the_previous_month": 15,
+      "total": 52859,
+      "increase_month": 15,
       "note": "증가",
       "geometry": {
         "type": "MultiPolygon",
@@ -26659,18 +26659,18 @@
       },
       "properties": {
         "name": "동탄4동",
-        "total_population": 52859,
-        "male population": 26239,
-        "female population": 26620,
-        "male_to_female_ratio": 0.986,
-        "Population_increase_compared_to_the_previous_month": 15,
+        "total": 52859,
+        "male": 26239,
+        "female": 26620,
+        "ratio": 0.986,
+        "increase_month": 15,
         "note": "증가"
       }
     },
     {
       "type": "Feature",
-      "total_population": 46454,
-      "Population_increase_compared_to_the_previous_month": 65,
+      "total": 46454,
+      "increase_month": 65,
       "note": "증가",
       "geometry": {
         "type": "MultiPolygon",
@@ -27139,18 +27139,18 @@
       },
       "properties": {
         "name": "동탄5동",
-        "total_population": 46454,
-        "male population": 23237,
-        "female population": 23217,
-        "male_to_female_ratio": 1,
-        "Population_increase_compared_to_the_previous_month": 65,
+        "total": 46454,
+        "male": 23237,
+        "female": 23217,
+        "ratio": 1,
+        "increase_month": 65,
         "note": "증가"
       }
     },
     {
       "type": "Feature",
-      "total_population": 40986,
-      "Population_increase_compared_to_the_previous_month": 8,
+      "total": 40986,
+      "increase_month": 8,
       "note": "증가",
       "geometry": {
         "type": "MultiPolygon",
@@ -27627,18 +27627,18 @@
       },
       "properties": {
         "name": "동탄6동",
-        "total_population": 40986,
-        "male population": 21148,
-        "female population": 19838,
-        "male_to_female_ratio": 1.066,
-        "Population_increase_compared_to_the_previous_month": 8,
+        "total": 40986,
+        "male": 21148,
+        "female": 19838,
+        "ratio": 1.066,
+        "increase_month": 8,
         "note": "증가"
       }
     },
     {
       "type": "Feature",
-      "total_population": 87958,
-      "Population_increase_compared_to_the_previous_month": 856,
+      "total": 87958,
+      "increase_month": 856,
       "note": "증가",
       "geometry": {
         "type": "MultiPolygon",
@@ -28459,18 +28459,18 @@
       },
       "properties": {
         "name": "동탄7동",
-        "total_population": 87958,
-        "male population": 44185,
-        "female population": 43773,
-        "male_to_female_ratio": 1.009,
-        "Population_increase_compared_to_the_previous_month": 856,
+        "total": 87958,
+        "male": 44185,
+        "female": 43773,
+        "ratio": 1.009,
+        "increase_month": 856,
         "note": "증가"
       }
     },
     {
       "type": "Feature",
-      "total_population": 33129,
-      "Population_increase_compared_to_the_previous_month": 37,
+      "total": 33129,
+      "increase_month": 37,
       "note": "증가",
       "geometry": {
         "type": "MultiPolygon",
@@ -28839,11 +28839,11 @@
       },
       "properties": {
         "name": "동탄8동",
-        "total_population": 33129,
-        "male population": 16700,
-        "female population": 16429,
-        "male_to_female_ratio": 1.02,
-        "Population_increase_compared_to_the_previous_month": 37,
+        "total": 33129,
+        "male": 16700,
+        "female": 16429,
+        "ratio": 1.02,
+        "increase_month": 37,
         "note": "증가"
       }
     }

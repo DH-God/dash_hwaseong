@@ -321,7 +321,7 @@ body { background: #0f0e19; }
 .content.wrap3 .left-box { width:43.56326078938%;  }
 .content.wrap3 .right-box {flex: 1; margin-left: 1.6rem; }
 
-/* 카카오맵  마우스 오버 이벤트*/
+/* 카카오맵 다각형 클릭 이벤트*/
 .area {
 	position: absolute;
 	background: #fff;
@@ -332,6 +332,16 @@ body { background: #0f0e19; }
 	top: -5px;
 	left: 15px;
 	padding:2px;
+}
+
+.info {
+	color: #000;
+	font-size: 12px;
+	padding: 5px;
+}
+.info .title {
+	color: #000;
+	font-weight: bold;
 }
 
 .map-wrap { height: 100%; position: relative; }

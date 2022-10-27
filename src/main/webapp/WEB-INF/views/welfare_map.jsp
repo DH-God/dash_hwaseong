@@ -191,8 +191,6 @@
                 $('.checkbox').prop('checked', true);
             }else{
                 $('.checkbox').prop('checked', false);
-
-                // clusterer.clear();
             }
         })
 
@@ -414,13 +412,12 @@ for(let idx=0; idx < trIndex; idx++) {
             customOverlays.push(customOverlay);
 
 
+
         }
         else {
             console.log('좌표변환실패')
         }
-
         clusterer.addMarkers(markers);
-
     });
     }
     }
@@ -560,16 +557,17 @@ for(let idx=0; idx < trIndex; idx++) {
 
                }
             }
-           areas.push({name : json_data.features[a].properties.name, path : [...path]})
+           areas.push({name : json_data.features[a].properties.name, path : [...path], total: json_data.features[a].total, male: json_data.features[a].properties.male, female: json_data.features[a].properties.female, ratio: json_data.features[a].properties.ratio, increase_month: json_data.features[a].properties.increase_month, note: json_data.features[a].properties.note})
 
             path = []
 
         }
+
+        // 지도에 영역데이터를 폴리곤으로 표시합니다
         for (let i=0, len=areas.length; i<len; i++) {
             displayArea(areas[i])
         }
     });
-
 
     var container = document.getElementById('map');
     var options = {
@@ -580,6 +578,13 @@ for(let idx=0; idx < trIndex; idx++) {
     var map = new kakao.maps.Map(container, options),
         customOverlay = new kakao.maps.CustomOverlay({}),
         infowindow = new kakao.maps.InfoWindow({removable: true});
+
+    // 마커 클러스터러를 생성합니다
+    var clusterer = new kakao.maps.MarkerClusterer({
+        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+        minLevel: 8 // 클러스터 할 최소 지도 레벨
+    });
 
     // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
     var mapTypeControl = new kakao.maps.MapTypeControl();
@@ -593,8 +598,8 @@ for(let idx=0; idx < trIndex; idx++) {
     map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
 
-
     function displayArea(area) {
+
         var polygon = new kakao.maps.Polygon({
             map: map,
             path: area.path, // 그려질 다각형의 좌표 배열입니다
@@ -606,19 +611,32 @@ for(let idx=0; idx < trIndex; idx++) {
             fillOpacity: 0.5 // 채우기 불투명도 입니다
         })
 
-
-
-
         // 다각형에 mouseover 이벤트를 등록하고 이벤트가 발생하면 폴리곤의 채움색을 변경합니다
         // 지역명을 표시하는 커스텀오버레이를 지도위에 표시합니다
         kakao.maps.event.addListener(polygon, 'mouseover', function(mouseEvent) {
             polygon.setOptions({fillColor: '#09f'});
-
             customOverlay.setContent('<div class="area">' + area.name + '</div>');
-
             customOverlay.setPosition(mouseEvent.latLng);
             customOverlay.setMap(map);
         });
+
+        // 다각형에 click 이벤트를 등록하고 이벤트가 발생하면 다각형의 이름과 면적을 인포윈도우에 표시합니다
+        kakao.maps.event.addListener(polygon, 'click', function(mouseEvent) {
+            var Population_info = '<div class="info">' +
+                '   <div class="title">' + area.name + '</div>' +
+                '   <div class="size">총 인구 : ' + area.total + '</div>' +
+                '   <div class="size">남성 : ' + area.male + '</div>' +
+                '   <div class="size">여성 : ' + area.female + '</div>' +
+                '   <div class="size">남녀 비율 : ' + area.ratio + '</div>' +
+                '   <div class="size">전월 대비 인구 증감 : ' + area.increase_month + '</div>' +
+                '   <div class="size">비고 : ' + area.note + '</div>'
+
+            infowindow.setContent(Population_info);
+            infowindow.setPosition(mouseEvent.latLng);
+            infowindow.setMap(map);
+        });
+
+
 
 
         // 커스텀 오버레이를 지도에서 제거합니다
@@ -629,12 +647,6 @@ for(let idx=0; idx < trIndex; idx++) {
 
     }
 
-    // 마커 클러스터러를 생성합니다
-    var clusterer = new kakao.maps.MarkerClusterer({
-        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
-        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
-        minLevel: 8 // 클러스터 할 최소 지도 레벨
-    });
     // 주소-좌표 변환 객체를 생성합니다
     var geocoder = new kakao.maps.services.Geocoder();
 
