@@ -195,12 +195,13 @@
         })
 
         $('.checkbox').click(function(){
-            var total = $('.checkbox').length-1;
+            var total = $('.checkbox').length;
             var checked = $('.checkbox:checked').length;
 
-            if(total != checked) {
+            if(total !== checked) {
                 $('.checkbox.all').prop('checked', false);
-            }else{
+            }
+            else {
                 $('.checkbox.all').prop('checked', true);
             }
         })
