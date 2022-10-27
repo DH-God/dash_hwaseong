@@ -239,7 +239,7 @@
     const checkbox_type4 = document.querySelector('input[type=checkbox][value=type4]');
     const checkbox_type5 = document.querySelector('input[type=checkbox][value=type5]');
     const checkbox_type6 = document.querySelector('input[type=checkbox][value=type6]');
-    const before_id =''; // 선태 되어있는 데이터
+    let before_id =''; // 선태 되어있는 데이터
     
     window.onload = () => {
 
