@@ -207,32 +207,32 @@
 
     })
 
-    let trIndex = 0;
-    let old_men_cnt = 0;
-    let integrated_service_cnt = 0;
-    let children_and_youth_cnt = 0;
-    let women_and_multiculturalism_cnt = 0;
-    let health_and_medical_facilities = 0;
-    let disabled_cnt = 0;
+    let trIndex = 0; //데이터 로우 번호
+    let old_men_cnt = 0; //어르신 데이터 개수
+    let integrated_service_cnt = 0; //통합서비스 데이터 개수
+    let children_and_youth_cnt = 0; //아동 청소년 데이터 개수
+    let women_and_multiculturalism_cnt = 0; //여성 다문화 데이터 개수
+    let health_and_medical_facilities = 0; //보건의려시설 데이터 개수
+    let disabled_cnt = 0; //장애인 데이터 개수
     const tbody = document.getElementById('tbody');
     const menu_option = document.getElementById('menu_option');
-    let crk5, q3rp, ehx4, cqv2, b958 = '';
-    const markers = [];
-    const markers_1 = [];
-    const markers_2 = [];
-    const markers_3 = [];
-    const markers_4 = [];
-    const markers_5 = [];
-    const markers_6 = [];
-    const crk5_ = [];
-    const q3rp_ = [];
-    const cqv2_ = [];
-    let content='';
-    let clickedOverlay = null;
-    const customOverlays = [];
-    const classNames = document.getElementsByClassName('crk5');
+    let crk5, q3rp, ehx4, cqv2, b958 = ''; //데이터 컬럼
+    const markers = []; //전체 지도 마커
+    const markers_1 = []; //장애인 지도 마커
+    const markers_2 = []; //보건의료시설 지도 마커
+    const markers_3 = []; //여성 다문화 지도 마커
+    const markers_4 = []; //아동 청소년 지도 마커
+    const markers_5 = []; //통합서비스 지도 마커
+    const markers_6 = []; //어르신 지도 마커
+    const crk5_ = []; //구분 컬럼 데이터
+    const q3rp_ = []; // 기관명 컬럼 데이터
+    const cqv2_ = []; // 주소 컬럼 데이터
+    let content=''; //마커 클릭시 표시되는 커스텀 오버레이(구분별로 다른 오버레이 표시 위헤)
+    let clickedOverlay = null; //마커 위에 열려있는 커스텀 오버레이
+    const customOverlays = []; // 마커 클릭시 표시되는 커스텀 오버레이
+    const classNames = document.getElementsByClassName('crk5'); //
     const checkboxes = document.querySelectorAll('input[type=checkbox][checked]');
-    let before_id ='';
+    let before_id =''; // 선태 되어있는 데이터
 
 
     window.onload = () => {
@@ -283,41 +283,41 @@
 
 
 
-
+//구분명 별로 다른색 커스텀 오버레이 표시
 for(let idx=0; idx < trIndex; idx++) {
+
+    const iwContent1 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">' +
+        '<div class="marker"><img src="img/common/marker1.svg" alt="주황색마커"></div>' +
+        '<div class="tit">' + q3rp_[idx] + '</div>' +
+        '</div>';
+
+    const iwContent2 = '<div class="marker-box type2 active" style="left: 20%; top:25%; ">' +
+        '<div class="marker"><img src="img/common/marker2.svg" alt="하늘색마커"></div>' +
+        '<div class="tit">' + q3rp_[idx] + '</div>' +
+        '</div>';
+
+    const iwContent3 = '<div class="marker-box type3 active" style="left: 20%; top:25%; ">' +
+        '<div class="marker"><img src="img/common/marker3.svg" alt="분홍색마커"></div>' +
+        '<div class="tit">' + q3rp_[idx] + '</div>' +
+        '</div>';
+
+    const iwContent4 = '<div class="marker-box type4 active" style="left: 20%; top:25%; ">' +
+        '<div class="marker"><img src="img/common/marker4.svg" alt="초록색마커"></div>' +
+        '<div class="tit">' + q3rp_[idx] + '</div>' +
+        '</div>'
+
+    const iwContent5 = '<div class="marker-box type5 active" style="left: 20%; top:25%; ">' +
+        '<div class="marker"><img src="img/common/marker5.svg" alt="갈색마커"></div>' +
+        '<div class="tit">' + q3rp_[idx] + '</div>' +
+        '</div>';
+
+    const iwContent6 = '<div class="marker-box type6 active" style="left: 20%; top:25%; ">' +
+        '<div class="marker"><img src="img/common/marker6.svg" alt="황토색마커"></div>' +
+        '<div class="tit">' + q3rp_[idx] + '</div>' +
+        '</div>';
 
 // 주소로 좌표를 검색합니다
     geocoder.addressSearch(cqv2_[idx], function (result, status) {
-
-        const iwContent1 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">' +
-            '<div class="marker"><img src="img/common/marker1.svg" alt="주황색마커"></div>' +
-            '<div class="tit">' + q3rp_[idx] + '</div>' +
-            '</div>';
-
-        const iwContent2 = '<div class="marker-box type2 active" style="left: 20%; top:25%; ">' +
-            '<div class="marker"><img src="img/common/marker2.svg" alt="하늘색마커"></div>' +
-            '<div class="tit">' + q3rp_[idx] + '</div>' +
-            '</div>';
-
-        const iwContent3 = '<div class="marker-box type3 active" style="left: 20%; top:25%; ">' +
-            '<div class="marker"><img src="img/common/marker3.svg" alt="분홍색마커"></div>' +
-            '<div class="tit">' + q3rp_[idx] + '</div>' +
-            '</div>';
-
-        const iwContent4 = '<div class="marker-box type4 active" style="left: 20%; top:25%; ">' +
-            '<div class="marker"><img src="img/common/marker4.svg" alt="초록색마커"></div>' +
-            '<div class="tit">' + q3rp_[idx] + '</div>' +
-            '</div>'
-
-        const iwContent5 = '<div class="marker-box type5 active" style="left: 20%; top:25%; ">' +
-            '<div class="marker"><img src="img/common/marker5.svg" alt="갈색마커"></div>' +
-            '<div class="tit">' + q3rp_[idx] + '</div>' +
-            '</div>';
-
-        const iwContent6 = '<div class="marker-box type6 active" style="left: 20%; top:25%; ">' +
-            '<div class="marker"><img src="img/common/marker6.svg" alt="황토색마커"></div>' +
-            '<div class="tit">' + q3rp_[idx] + '</div>' +
-            '</div>';
 
         switch (crk5_[idx]) {
             case '어르신':
@@ -369,21 +369,21 @@ for(let idx=0; idx < trIndex; idx++) {
                     clickedOverlay.setMap(null); //이미 열러있는 오베레이가 있으면 닫는다
                 }
 
+                //데이터 css 변경 이벤트
                 for(let data_item of data_items) {
                     if(customOverlay_name===data_item.children[1].textContent) {
                         data_item.className='active';
                         before_id=data_item.id;
-                        data_item.scrollIntoView();
+                        data_item.scrollIntoView(); //클릭한 데이터로 스크롤 이동
                     }
                     else {
                         data_item.className='';
                     }
                 }
 
-
                 customOverlay.setMap(map);
                 clickedOverlay = customOverlay;
-                map.setCenter(marker.getPosition());
+                map.setCenter(marker.getPosition()); //지도 중심 변경
 
 
             });
@@ -411,6 +411,7 @@ for(let idx=0; idx < trIndex; idx++) {
 
             //생성된 마커를 배열에 넣는다.
             markers.push(marker);
+            //생성된 커스텀 오베레이를 배열에 넣는다.
             customOverlays.push(customOverlay);
 
 
@@ -419,14 +420,16 @@ for(let idx=0; idx < trIndex; idx++) {
         else {
             console.log('좌표변환실패')
         }
-        clusterer.addMarkers(markers);
+        clusterer.addMarkers(markers); //마커를 클러스터에 추가한다.
     });
     }
     }
 
+
+    //사이드 바 클릭 이벤트
     const change_data = (t) => {
-            infowindow.close();
-            clusterer.clear();
+            infowindow.close(); //열려있는 인구정보를 닫는다.
+            clusterer.clear(); //클러스터를 비운다.
             document.getElementById(before_id).classList.remove('active');
             for(let className of classNames) {
                 className.parentElement.style.display='';
@@ -464,12 +467,14 @@ for(let idx=0; idx < trIndex; idx++) {
             }
     }
 
+    //String을 HTML로 변경
     const stringToHTML =  (str) => {
         var parser = new DOMParser();
         var doc = parser.parseFromString(str, 'text/html');
         return doc.body;
     };
 
+    //데이터 클릭 이벤트
     const click_data = (t) => {
         let name = document.getElementById(t.id).children[1].textContent;
         let address = document.getElementById(t.id).children[3].textContent;
@@ -491,11 +496,16 @@ for(let idx=0; idx < trIndex; idx++) {
         geocoder.addressSearch(address, function(result, status) {
             // 정상적으로 검색이 완료됐으면
             if (status === kakao.maps.services.Status.OK) {
+
+                //좌표 생성
                 const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
+                // 마커 클릭시 표시되는 커스텀 오버레이의 텍스트와 데이터의 기관명 비교
                 for (let cto of customOverlays) {
                     const cto_name = stringToHTML(cto.cc).children[0].children[1].textContent;
-                    if (cto_name ===name) {
+
+                    //깉으면 해당 마커로 지도 중심 이동, 커스텀 오버레이 표시
+                    if (cto_name===name) {
                         if(clickedOverlay) {
                             clickedOverlay.setMap(null); //이미 열러있는 오베레이가 있으면 닫는다
                         }
@@ -503,12 +513,12 @@ for(let idx=0; idx < trIndex; idx++) {
                         clickedOverlay = cto;
                         }
                     }
+                //지도 레벨 변경
                 map.setLevel(5);
                 // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
                 map.setCenter(coords);
 
                 }
-
             else {console.log('좌표 변환 실패')}
         });
 
@@ -527,13 +537,14 @@ for(let idx=0; idx < trIndex; idx++) {
         rawFile.send(null);
     }
 
+    //행정구역 구분 폴리곤 정보 담을 배열
     const areas = [];
+
     //json 함수 사용법
     readJSON("json/hs_polygon.json", function(text){
         const json_data = JSON.parse(text);
-
-        let path= [];
-        let paths= [];
+        let path= []; //폴리곤 전체
+        let paths= []; //멀티 폴리곤처리 위한 배열
         for ( let a=0; a < json_data.features.length; a++) {
 
             if(json_data.features[a].geometry.coordinates.length!==1) {
@@ -650,10 +661,11 @@ for(let idx=0; idx < trIndex; idx++) {
     // 주소-좌표 변환 객체를 생성합니다
     var geocoder = new kakao.maps.services.Geocoder();
 
+    //체크박스 이벤트
     const change_checkBox = () => {
-        infowindow.close();
-        clusterer.clear();
-        document.getElementById(before_id).classList.remove('active');
+        infowindow.close(); //인구정보 열려있으면 닫는다
+        clusterer.clear(); //클러스터 비운다
+        before_id!==''?document.getElementById(before_id).classList.remove('active'):''; //선택된 데이터가 있으면 선택 헤제한다.
         if(clickedOverlay) {
             clickedOverlay.setMap(null); //이미 열러있는 오베레이가 있으면 닫는다
         }
