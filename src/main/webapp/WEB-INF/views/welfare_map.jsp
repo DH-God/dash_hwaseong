@@ -195,7 +195,7 @@
         })
 
         $('.checkbox').click(function(){
-            var total = $('.checkbox').length;
+            var total = $('.checkbox').length-1;
             var checked = $('.checkbox:checked').length;
 
             if(total != checked) {
@@ -231,10 +231,16 @@
     let clickedOverlay = null; //마커 위에 열려있는 커스텀 오버레이
     const customOverlays = []; // 마커 클릭시 표시되는 커스텀 오버레이
     const classNames = document.getElementsByClassName('crk5'); //
-    const checkboxes = document.querySelectorAll('input[type=checkbox][checked]');
-    let before_id =''; // 선태 되어있는 데이터
-
-
+    const checkboxes = document.querySelectorAll('input[type=checkbox]');
+    const checkbox_all = document.querySelector('input[type=checkbox][value=all]');
+    const checkbox_type1 = document.querySelector('input[type=checkbox][value=type1]');
+    const checkbox_type2 = document.querySelector('input[type=checkbox][value=type2]');
+    const checkbox_type3 = document.querySelector('input[type=checkbox][value=type3]');
+    const checkbox_type4 = document.querySelector('input[type=checkbox][value=type4]');
+    const checkbox_type5 = document.querySelector('input[type=checkbox][value=type5]');
+    const checkbox_type6 = document.querySelector('input[type=checkbox][value=type6]');
+    const before_id =''; // 선태 되어있는 데이터
+    
     window.onload = () => {
 
         <c:forEach items="${data}" var="item">
@@ -271,13 +277,13 @@
 
         </c:forEach>
 
-        let list = ("<li id= 'all_items' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "복지기관" + "(" + trIndex + ")</a></li>"
-            + "<li id ='items_1' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "장애인" + "(" + disabled_cnt + ")</a></li>"
-            + "<li id='items_2' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "보건의료시설" + "(" + health_and_medical_facilities + ")</a></li>"
-            + "<li id='items_3' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "여성/다문화" + "(" + women_and_multiculturalism_cnt + ")</a></li>"
-            + "<li id='items_4' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "아동/청소년" + "(" + children_and_youth_cnt + ")</a></li>"
-            + "<li id='items_5' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "통합서비스" + "(" + integrated_service_cnt + ")</a></li>"
-            + "<li id='items_6' onclick=change_data(this)><a href='javascript:void(0)' class='btn-dep2'>" + "어르신" + "(" + old_men_cnt + ")</a></li>");
+        let list = ("<li id= 'all_items' onclick=click_sideBar(this)><a href='javascript:void(0)' class='btn-dep2'>" + "복지기관" + "(" + trIndex + ")</a></li>"
+            + "<li id ='items_1' onclick=click_sideBar(this)><a href='javascript:void(0)' class='btn-dep2'>" + "장애인" + "(" + disabled_cnt + ")</a></li>"
+            + "<li id='items_2' onclick=click_sideBar(this)><a href='javascript:void(0)' class='btn-dep2'>" + "보건의료시설" + "(" + health_and_medical_facilities + ")</a></li>"
+            + "<li id='items_3' onclick=click_sideBar(this)><a href='javascript:void(0)' class='btn-dep2'>" + "여성/다문화" + "(" + women_and_multiculturalism_cnt + ")</a></li>"
+            + "<li id='items_4' onclick=click_sideBar(this)><a href='javascript:void(0)' class='btn-dep2'>" + "아동/청소년" + "(" + children_and_youth_cnt + ")</a></li>"
+            + "<li id='items_5' onclick=click_sideBar(this)><a href='javascript:void(0)' class='btn-dep2'>" + "통합서비스" + "(" + integrated_service_cnt + ")</a></li>"
+            + "<li id='items_6' onclick=click_sideBar(this)><a href='javascript:void(0)' class='btn-dep2'>" + "어르신" + "(" + old_men_cnt + ")</a></li>");
 
         menu_option.insertAdjacentHTML('afterbegin', list);
 
@@ -427,40 +433,89 @@ for(let idx=0; idx < trIndex; idx++) {
 
 
     //사이드 바 클릭 이벤트
-    const change_data = (t) => {
-            infowindow.close(); //열려있는 인구정보를 닫는다.
-            clusterer.clear(); //클러스터를 비운다.
-            document.getElementById(before_id).classList.remove('active');
-            for(let className of classNames) {
-                className.parentElement.style.display='';
+    const click_sideBar = (t) => {
+        infowindow.close(); //열려있는 인구정보를 닫는다.
+        clusterer.clear(); //클러스터를 비운다.
+        before_id!==''?document.getElementById(before_id).classList.remove('active'):'';
+        for(let className of classNames) {
+            className.parentElement.style.display='';
+            if(t.id==='items_1' && className.textContent !== '장애인') {
+                className.parentElement.style.display='none';
+                clusterer.addMarkers(markers_1);
+                checkbox_all.checked = false;
+                checkbox_type1.checked = true;
+                checkbox_type2.checked = false;
+                checkbox_type3.checked = false;
+                checkbox_type4.checked = false;
+                checkbox_type5.checked = false;
+                checkbox_type6.checked = false;
 
-                if(t.id==='items_1' && className.textContent !== '장애인') {
-                    className.parentElement.style.display='none';
-                    clusterer.addMarkers(markers_1);
-                }
-                else if(t.id==='items_2' && className.textContent !== '보건의료시설') {
-                    className.parentElement.style.display='none';
-                    clusterer.addMarkers(markers_2);
-                }
-                else if(t.id==='items_3' && className.textContent !== '여성 다문화') {
-                    className.parentElement.style.display='none';
-                    clusterer.addMarkers(markers_3);
-                }
-                else if(t.id==='items_4' && className.textContent !== '아동 청소년') {
-                    className.parentElement.style.display='none';
-                    clusterer.addMarkers(markers_4);
-                }
-                else if(t.id==='items_5' && className.textContent !== '통합서비스') {
-                    className.parentElement.style.display='none';
-                    clusterer.addMarkers(markers_5);
-                }
-                else if(t.id==='items_6' && className.textContent !== '어르신') {
-                    className.parentElement.style.display='none';
-                    clusterer.addMarkers(markers_6);
-                }
-                else if(t.id==='all_items') {
-                    clusterer.addMarkers(markers);
-                }
+            }
+            else if(t.id==='items_2' && className.textContent !== '보건의료시설') {
+                className.parentElement.style.display='none';
+                clusterer.addMarkers(markers_2);
+                checkbox_all.checked = false;
+                checkbox_type1.checked = false;
+                checkbox_type2.checked = true;
+                checkbox_type3.checked = false;
+                checkbox_type4.checked = false;
+                checkbox_type5.checked = false;
+                checkbox_type6.checked = false;
+            }
+            else if(t.id==='items_3' && className.textContent !== '여성 다문화') {
+                className.parentElement.style.display='none';
+                clusterer.addMarkers(markers_3);
+                checkbox_all.checked = false;
+                checkbox_type1.checked = false;
+                checkbox_type2.checked = false;
+                checkbox_type3.checked = true;
+                checkbox_type4.checked = false;
+                checkbox_type5.checked = false;
+                checkbox_type6.checked = false;
+            }
+            else if(t.id==='items_4' && className.textContent !== '아동 청소년') {
+                className.parentElement.style.display='none';
+                clusterer.addMarkers(markers_4);
+                checkbox_all.checked = false;
+                checkbox_type1.checked = false;
+                checkbox_type2.checked = false;
+                checkbox_type3.checked = false;
+                checkbox_type4.checked = true;
+                checkbox_type5.checked = false;
+                checkbox_type6.checked = false;
+            }
+            else if(t.id==='items_5' && className.textContent !== '통합서비스') {
+                className.parentElement.style.display='none';
+                clusterer.addMarkers(markers_5);
+                checkbox_all.checked = false;
+                checkbox_type1.checked = false;
+                checkbox_type2.checked = false;
+                checkbox_type3.checked = false;
+                checkbox_type4.checked = false;
+                checkbox_type5.checked = true;
+                checkbox_type6.checked = false;
+            }
+            else if(t.id==='items_6' && className.textContent !== '어르신') {
+                className.parentElement.style.display='none';
+                clusterer.addMarkers(markers_6);
+                checkbox_all.checked = false;
+                checkbox_type1.checked = false;
+                checkbox_type2.checked = false;
+                checkbox_type3.checked = false;
+                checkbox_type4.checked = false;
+                checkbox_type5.checked = false;
+                checkbox_type6.checked = true;
+            }
+            else if(t.id==='all_items') {
+                checkbox_all.checked = true;
+                checkbox_type1.checked = true;
+                checkbox_type2.checked = true;
+                checkbox_type3.checked = true;
+                checkbox_type4.checked = true;
+                checkbox_type5.checked = true;
+                checkbox_type6.checked = true;
+                clusterer.addMarkers(markers);
+            }
         }
             if(clickedOverlay) {
                 clickedOverlay.setMap(null); //이미 열러있는 오베레이가 있으면 닫는다
