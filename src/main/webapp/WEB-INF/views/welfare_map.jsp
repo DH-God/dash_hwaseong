@@ -355,7 +355,7 @@ for(let idx=0; idx < trIndex; idx++) {
                 position: marker.getPosition(),
                 content: content,
                 removable: true,
-                xAnchor: 1
+                yAnchor: 1,
             });
 
 
@@ -423,9 +423,8 @@ for(let idx=0; idx < trIndex; idx++) {
     }
 
     const change_data = (t) => {
-
+            infowindow.close();
             clusterer.clear();
-
             for(let className of classNames) {
                 className.parentElement.style.display='';
 
@@ -472,9 +471,9 @@ for(let idx=0; idx < trIndex; idx++) {
 
 
     const click_data = (t) => {
-
         let name = document.getElementById(t.id).children[1].textContent;
         let address = document.getElementById(t.id).children[3].textContent;
+        infowindow.close();
         if(before_id!==''){
             document.getElementById(before_id).classList.remove("active");
             document.getElementById(t.id).className = "active";
@@ -504,7 +503,7 @@ for(let idx=0; idx < trIndex; idx++) {
                         clickedOverlay = cto;
                         }
                     }
-                map.setLevel(1);
+                map.setLevel(5);
                 // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
                 map.setCenter(coords);
 
@@ -629,7 +628,8 @@ for(let idx=0; idx < trIndex; idx++) {
                 '   <div class="size">여성 : ' + area.female + '</div>' +
                 '   <div class="size">남녀 비율 : ' + area.ratio + '</div>' +
                 '   <div class="size">전월 대비 인구 증감 : ' + area.increase_month + '</div>' +
-                '   <div class="size">비고 : ' + area.note + '</div>'
+                '   <div class="size">비고 : ' + area.note + '</div>' +
+                '</div>'
 
             infowindow.setContent(Population_info);
             infowindow.setPosition(mouseEvent.latLng);
@@ -651,7 +651,11 @@ for(let idx=0; idx < trIndex; idx++) {
     var geocoder = new kakao.maps.services.Geocoder();
 
     const change_checkBox = () => {
+        infowindow.close();
         clusterer.clear();
+        if(clickedOverlay) {
+            clickedOverlay.setMap(null); //이미 열러있는 오베레이가 있으면 닫는다
+        }
         for (let checkbox of checkboxes) {
             const check_value = checkbox.value;
             for (let className of classNames) {
