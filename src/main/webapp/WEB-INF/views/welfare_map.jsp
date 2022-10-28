@@ -91,11 +91,11 @@
 
                 <div class="content-common-box">
                     <h2 class="h2">화성시 복지맵</h2>
+
                     <div class="cont none-bg">
                         <div class="map-wrap">
                             <div id="map"  style="border:0; width:100%; height:100%;">
                             </div>
-
                             <div class="map-infomation">
                                 <h4>복지시설</h4>
                                 <div class="checklist">
@@ -114,8 +114,6 @@
                         </div>
                     </div>
                 </div>
-
-
 
                 <!-- // 공통 컨텐츠 박스 -->
 
@@ -217,7 +215,7 @@
     let disabled_cnt = 0; //장애인 데이터 개수
     const tbody = document.getElementById('tbody');
     const menu_option = document.getElementById('menu_option');
-    let crk5, q3rp, ehx4, cqv2, b958 = ''; //데이터 컬럼
+    let crk5, q3rp, ehx4, cqv2, b958, ezv7, kob5 = ''; //데이터 컬럼
     const markers = []; //전체 지도 마커
     const markers_1 = []; //장애인 지도 마커
     const markers_2 = []; //보건의료시설 지도 마커
@@ -228,6 +226,7 @@
     const crk5_ = []; //구분 컬럼 데이터
     const q3rp_ = []; // 기관명 컬럼 데이터
     const cqv2_ = []; // 주소 컬럼 데이터
+    let marker_info = []; // 마커 정보
     let content=''; //마커 클릭시 표시되는 커스텀 오버레이(구분별로 다른 오버레이 표시 위헤)
     let clickedOverlay = null; //마커 위에 열려있는 커스텀 오버레이
     const customOverlays = []; // 마커 클릭시 표시되는 커스텀 오버레이
@@ -241,7 +240,11 @@
     const checkbox_type5 = document.querySelector('input[type=checkbox][value=type5]');
     const checkbox_type6 = document.querySelector('input[type=checkbox][value=type6]');
     let before_id =''; // 선태 되어있는 데이터
-    
+    const areas = []; //행정구역 구분 폴리곤 정보 담을 배열
+    // 주소-좌표 변환 객체를 생성합니다
+    const geocoder = new kakao.maps.services.Geocoder();
+
+
     window.onload = () => {
 
         <c:forEach items="${data}" var="item">
@@ -250,10 +253,30 @@
         ehx4 = ${item.dataCont}['ehx4']; //상세설명
         cqv2 = ${item.dataCont}['cqv2']; //주소
         b958 = ${item.dataCont}['b958']; //연락처
+        ezv7 = ${item.dataCont}['ezv7']; //위도
+        kob5 = ${item.dataCont}['kob5']; //경도
 
-        q3rp_.push(q3rp);
-        crk5_.push(crk5);
-        cqv2_.push(cqv2)
+        // q3rp_.push(q3rp);
+        // crk5_.push(crk5);
+        // cqv2_.push(cqv2);
+
+        if(ezv7&&kob5) {
+            marker_info = [...marker_info, {ezv7, kob5, crk5, q3rp, cqv2}];
+            // console.log(cqv2);
+            // kob5_.push(kob5);
+        } else {
+            geocoder.addressSearch(cqv2, function (result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    marker_info = [...marker_info, {ezv7: result[0].y, kob5: result[0].x, crk5:crk5, q3rp:q3rp, cqv2:cqv2}];
+                    console.log(cqv2);
+                    // console.log(coordinate);
+
+
+                } else {
+                    console.log('좌표반환실패');
+                }
+            });
+        }
 
         var data = ("<tr id=" + trIndex + " name='data_item'" + " onclick=click_data(this)" + ">" +
             "<td class='crk5'>" + crk5 + "</td>" +
@@ -295,38 +318,35 @@ for(let idx=0; idx < trIndex; idx++) {
 
     const iwContent1 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">' +
         '<div class="marker"><img src="img/common/marker1.svg" alt="주황색마커"></div>' +
-        '<div class="tit">' + q3rp_[idx] + '</div>' +
+        '<div class="tit">' + marker_info[idx].q3rp + '</div>' +
         '</div>';
 
     const iwContent2 = '<div class="marker-box type2 active" style="left: 20%; top:25%; ">' +
         '<div class="marker"><img src="img/common/marker2.svg" alt="하늘색마커"></div>' +
-        '<div class="tit">' + q3rp_[idx] + '</div>' +
+        '<div class="tit">' + marker_info[idx].q3rp + '</div>' +
         '</div>';
 
     const iwContent3 = '<div class="marker-box type3 active" style="left: 20%; top:25%; ">' +
         '<div class="marker"><img src="img/common/marker3.svg" alt="분홍색마커"></div>' +
-        '<div class="tit">' + q3rp_[idx] + '</div>' +
+        '<div class="tit">' + marker_info[idx].q3rp + '</div>' +
         '</div>';
 
     const iwContent4 = '<div class="marker-box type4 active" style="left: 20%; top:25%; ">' +
         '<div class="marker"><img src="img/common/marker4.svg" alt="초록색마커"></div>' +
-        '<div class="tit">' + q3rp_[idx] + '</div>' +
+        '<div class="tit">' + marker_info[idx].q3rp + '</div>' +
         '</div>'
 
     const iwContent5 = '<div class="marker-box type5 active" style="left: 20%; top:25%; ">' +
         '<div class="marker"><img src="img/common/marker5.svg" alt="갈색마커"></div>' +
-        '<div class="tit">' + q3rp_[idx] + '</div>' +
+        '<div class="tit">' + marker_info[idx].q3rp + '</div>' +
         '</div>';
 
     const iwContent6 = '<div class="marker-box type6 active" style="left: 20%; top:25%; ">' +
         '<div class="marker"><img src="img/common/marker6.svg" alt="황토색마커"></div>' +
-        '<div class="tit">' + q3rp_[idx] + '</div>' +
+        '<div class="tit">' + marker_info[idx].q3rp + '</div>' +
         '</div>';
 
-// 주소로 좌표를 검색합니다
-    geocoder.addressSearch(cqv2_[idx], function (result, status) {
-
-        switch (crk5_[idx]) {
+        switch (marker_info[idx].crk5) {
             case '어르신':
                 content = iwContent6;
                 break;
@@ -346,10 +366,11 @@ for(let idx=0; idx < trIndex; idx++) {
                 content = iwContent1;
                 break;
         }
+    // console.log(coordinate[idx].kob5);
+            const coords = new kakao.maps.LatLng(marker_info[idx].ezv7, marker_info[idx].kob5);
 
-        // 정상적으로 검색이 완료됐으면
-        if (status === kakao.maps.services.Status.OK) {
-            const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+            // console.log(marker_info);
+            // console.log(coordinate[idx].ezv7);
 
             // 결과값으로 받은 위치를 마커로 표시합니다
             const marker = new kakao.maps.Marker({
@@ -372,30 +393,27 @@ for(let idx=0; idx < trIndex; idx++) {
                 const customOverlay_name = stringToHTML(customOverlay.cc).children[0].children[1].textContent
                 const data_items = document.getElementsByName('data_item');
 
-                if(clickedOverlay) {
+                if (clickedOverlay) {
                     clickedOverlay.setMap(null); //이미 열러있는 오베레이가 있으면 닫는다
                 }
 
                 //데이터 css 변경 이벤트
-                for(let data_item of data_items) {
-                    if(customOverlay_name===data_item.children[1].textContent) {
-                        data_item.className='active';
-                        before_id=data_item.id;
+                for (let data_item of data_items) {
+                    if (customOverlay_name === data_item.children[1].textContent) {
+                        data_item.className = 'active';
+                        before_id = data_item.id;
                         data_item.scrollIntoView(); //클릭한 데이터로 스크롤 이동
-                    }
-                    else {
-                        data_item.className='';
+                    } else {
+                        data_item.className = '';
                     }
                 }
-
                 customOverlay.setMap(map);
                 clickedOverlay = customOverlay;
                 map.setCenter(marker.getPosition()); //지도 중심 변경
 
-
             });
 
-            switch (crk5_[idx]) {
+            switch (marker_info[idx].crk5) {
                 case '어르신':
                     markers_6.push(marker);
                     break;
@@ -416,21 +434,17 @@ for(let idx=0; idx < trIndex; idx++) {
                     break;
             }
 
+
             //생성된 마커를 배열에 넣는다.
             markers.push(marker);
             //생성된 커스텀 오베레이를 배열에 넣는다.
             customOverlays.push(customOverlay);
-
-
-
+            clusterer.addMarkers(markers);
         }
-        else {
-            console.log('좌표변환실패')
-        }
-        clusterer.addMarkers(markers); //마커를 클러스터에 추가한다.
-    });
-    }
-    }
+
+}
+
+
 
 
     //사이드 바 클릭 이벤트
@@ -533,7 +547,7 @@ for(let idx=0; idx < trIndex; idx++) {
     //데이터 클릭 이벤트
     const click_data = (t) => {
         let name = document.getElementById(t.id).children[1].textContent;
-        let address = document.getElementById(t.id).children[3].textContent;
+        let coords = ''
         infowindow.close();
         if(before_id!==''){
             document.getElementById(before_id).classList.remove("active");
@@ -548,14 +562,6 @@ for(let idx=0; idx < trIndex; idx++) {
             clickedOverlay.setMap(null); //이미 열러있는 오베레이가 있으면 닫는다
         }
 
-        // 주소로 좌표를 검색합니다 ps. 도로명 주소 사묭할 경우 검색 결과 없을수 있음 지번주소 사용 추천
-        geocoder.addressSearch(address, function(result, status) {
-            // 정상적으로 검색이 완료됐으면
-            if (status === kakao.maps.services.Status.OK) {
-
-                //좌표 생성
-                const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
                 // 마커 클릭시 표시되는 커스텀 오버레이의 텍스트와 데이터의 기관명 비교
                 for (let cto of customOverlays) {
                     const cto_name = stringToHTML(cto.cc).children[0].children[1].textContent;
@@ -565,6 +571,15 @@ for(let idx=0; idx < trIndex; idx++) {
                         if(clickedOverlay) {
                             clickedOverlay.setMap(null); //이미 열러있는 오베레이가 있으면 닫는다
                         }
+                       const mk_info = marker_info.find(info =>
+                           info.q3rp===cto_name
+                        )
+
+                        console.log(mk_info);
+                        console.log(mk_info.ezv7);
+                        console.log(mk_info.kob5);
+
+                        coords=new kakao.maps.LatLng(mk_info.ezv7, mk_info.kob5)
                         cto.setMap(map);
                         clickedOverlay = cto;
                         }
@@ -573,10 +588,6 @@ for(let idx=0; idx < trIndex; idx++) {
                 map.setLevel(5);
                 // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
                 map.setCenter(coords);
-
-                }
-            else {console.log('좌표 변환 실패')}
-        });
 
     }
 
@@ -592,9 +603,6 @@ for(let idx=0; idx < trIndex; idx++) {
         }
         rawFile.send(null);
     }
-
-    //행정구역 구분 폴리곤 정보 담을 배열
-    const areas = [];
 
     //json 함수 사용법
     readJSON("json/hs_polygon.json", function(text){
@@ -628,7 +636,6 @@ for(let idx=0; idx < trIndex; idx++) {
             path = []
 
         }
-
         // 지도에 영역데이터를 폴리곤으로 표시합니다
         for (let i=0, len=areas.length; i<len; i++) {
             displayArea(areas[i])
@@ -651,6 +658,7 @@ for(let idx=0; idx < trIndex; idx++) {
         averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
         minLevel: 8 // 클러스터 할 최소 지도 레벨
     });
+
 
     // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
     var mapTypeControl = new kakao.maps.MapTypeControl();
@@ -703,9 +711,6 @@ for(let idx=0; idx < trIndex; idx++) {
             infowindow.setMap(map);
         });
 
-
-
-
         // 커스텀 오버레이를 지도에서 제거합니다
         kakao.maps.event.addListener(polygon, 'mouseout', function() {
             polygon.setOptions({fillColor: '#fff'});
@@ -714,8 +719,6 @@ for(let idx=0; idx < trIndex; idx++) {
 
     }
 
-    // 주소-좌표 변환 객체를 생성합니다
-    var geocoder = new kakao.maps.services.Geocoder();
 
     //체크박스 이벤트
     const change_checkBox = () => {
