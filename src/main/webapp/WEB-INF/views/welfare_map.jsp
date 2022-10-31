@@ -241,8 +241,11 @@
     const checkbox_type6 = document.querySelector('input[type=checkbox][value=type6]');
     let before_id =''; // 선태 되어있는 데이터
     const areas = []; //행정구역 구분 폴리곤 정보 담을 배열
+    let x='';
+    let y='';
     // 주소-좌표 변환 객체를 생성합니다
     const geocoder = new kakao.maps.services.Geocoder();
+
 
 
     window.onload = () => {
@@ -255,28 +258,27 @@
         b958 = ${item.dataCont}['b958']; //연락처
         ezv7 = ${item.dataCont}['ezv7']; //위도
         kob5 = ${item.dataCont}['kob5']; //경도
-
         // q3rp_.push(q3rp);
         // crk5_.push(crk5);
         // cqv2_.push(cqv2);
 
-        if(ezv7&&kob5) {
-            marker_info = [...marker_info, {ezv7, kob5, crk5, q3rp, cqv2}];
-            // console.log(cqv2);
-            // kob5_.push(kob5);
-        } else {
+        if(!ezv7||!kob5) {
             geocoder.addressSearch(cqv2, function (result, status) {
                 if (status === kakao.maps.services.Status.OK) {
-                    marker_info = [...marker_info, {ezv7: result[0].y, kob5: result[0].x, crk5:crk5, q3rp:q3rp, cqv2:cqv2}];
-                    console.log(cqv2);
-                    // console.log(coordinate);
-
-
+                    x=result[0].x;
+                    y=result[0].y;
                 } else {
-                    console.log('좌표반환실패');
+                    console.log('좌표변환실패');
                 }
+
             });
+            marker_info = [...marker_info, {ezv7: y, kob5: x, crk5, q3rp, cqv2}];
+
+        } else {
+            marker_info = [...marker_info, {ezv7, kob5, crk5, q3rp, cqv2}];
+
         }
+
 
         var data = ("<tr id=" + trIndex + " name='data_item'" + " onclick=click_data(this)" + ">" +
             "<td class='crk5'>" + crk5 + "</td>" +
@@ -315,7 +317,6 @@
 
 //구분명 별로 다른색 커스텀 오버레이 표시
 for(let idx=0; idx < trIndex; idx++) {
-
     const iwContent1 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">' +
         '<div class="marker"><img src="img/common/marker1.svg" alt="주황색마커"></div>' +
         '<div class="tit">' + marker_info[idx].q3rp + '</div>' +
@@ -437,6 +438,7 @@ for(let idx=0; idx < trIndex; idx++) {
 
             //생성된 마커를 배열에 넣는다.
             markers.push(marker);
+
             //생성된 커스텀 오베레이를 배열에 넣는다.
             customOverlays.push(customOverlay);
             clusterer.addMarkers(markers);
@@ -575,19 +577,17 @@ for(let idx=0; idx < trIndex; idx++) {
                            info.q3rp===cto_name
                         )
 
-                        console.log(mk_info);
-                        console.log(mk_info.ezv7);
-                        console.log(mk_info.kob5);
-
                         coords=new kakao.maps.LatLng(mk_info.ezv7, mk_info.kob5)
                         cto.setMap(map);
                         clickedOverlay = cto;
                         }
                     }
-                //지도 레벨 변경
-                map.setLevel(5);
-                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-                map.setCenter(coords);
+                if(coords.La&&coords.Ma){
+                    map.setLevel(5);
+                    map.setCenter(coords);
+                }
+                else(console.log('좌표값오류'))
+
 
     }
 
@@ -755,6 +755,7 @@ for(let idx=0; idx < trIndex; idx++) {
 
         }
     }
+
 
 </script>
 
