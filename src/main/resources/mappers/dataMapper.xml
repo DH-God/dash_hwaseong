@@ -3,14 +3,28 @@
 
 <mapper namespace="com.clamos.dash_hwaseong.dao.DataDAO">
 
-    <resultMap type="HashMap" id="test">
+    <resultMap type="HashMap" id="excel_data">
         <result property="dataCont" column="data_cont" jdbcType="CLOB" javaType="java.lang.String" />
     </resultMap>
 
-    <select id="select_welfare_map" resultType="HashMap" resultMap="test">
+    <select id="select_welfare_map" resultType="HashMap" resultMap="excel_data">
         <![CDATA[
             SELECT DATA_CONT FROM ADM_XLS_DATA WHERE XLS_UPLD_ID=1043 AND DEL_YN='N';
         ]]>
     </select>
+
+    <select id="select_public_facilities" resultType="HashMap" resultMap="excel_data">
+        <![CDATA[
+        SELECT DATA_CONT FROM ADM_XLS_DATA WHERE XLS_UPLD_ID IN (1047, 1048, 1031, 1035, 1033, 1029, 1032, 1036) AND DEL_YN='N';
+        ]]>
+    </select>
+
+    <select id="select_public_facilities" resultType="HashMap" resultMap="excel_data">
+        <![CDATA[
+        SELECT DATA_CONT FROM ADM_XLS_DATA WHERE XLS_UPLD_ID IN (1047, 1048, 1031, 1035, 1033, 1029, 1032, 1036) AND DEL_YN='N';
+        ]]>
+    </select>
+
+
 </mapper>
 

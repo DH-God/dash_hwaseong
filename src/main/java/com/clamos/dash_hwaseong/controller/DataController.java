@@ -15,12 +15,16 @@ public class DataController {
     DataService dataService;
 
     @GetMapping("/welfare_map")
-    public String population_status(Model model) throws Exception {
+    public String welfare_map(Model model) throws Exception {
         List<Map<String, String>> data = dataService.select_welfare_map();
         model.addAttribute("data", data);
-//        System.out.println(model.getAttribute("data"));
-
-//        System.out.println(data);
         return "/welfare_map";
+    }
+
+    @GetMapping("/public_facilities")
+    public String public_facilities(Model model) throws Exception {
+        List<Map<String, String>> data = dataService.select_public_facilities();
+        model.addAttribute("data", data);
+        return "/public_facilities";
     }
 }
