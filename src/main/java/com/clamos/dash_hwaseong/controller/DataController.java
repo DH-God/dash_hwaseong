@@ -23,8 +23,11 @@ public class DataController {
 
     @GetMapping("/public_facilities")
     public String public_facilities(Model model) throws Exception {
-        List<Map<String, String>> data = dataService.select_public_facilities();
-        model.addAttribute("data", data);
+        List<Map<String, String>> excel_data = dataService.select_public_facilities_excel();
+        List<Map<String, String>> col_data = dataService.select_public_facilities_col();
+
+        model.addAttribute("excel_data", excel_data);
+        model.addAttribute("col_data", col_data);
         return "/public_facilities";
     }
 }

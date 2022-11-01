@@ -21,9 +21,15 @@ public class DataServiceImpl  implements DataService{
     }
 
     @Override
-    public List<Map<String, String>> select_public_facilities() {
-        List<Map<String, String>> public_facilities;
-        public_facilities = dataDAO.select_public_facilities();
-        return public_facilities;
+    public List<Map<String, String>> select_public_facilities_excel() {
+        List<Map<String, String>> public_facilities_excel;
+        public_facilities_excel = dataDAO.select_public_facilities_excel();
+        return public_facilities_excel;
+    }
+    @Override
+    public List<Map<String, String>> select_public_facilities_col() {
+        List<Map<String, String>> public_facilities_col;
+        public_facilities_col = dataDAO.select_public_facilities_col();
+        return public_facilities_col;
     }
 }

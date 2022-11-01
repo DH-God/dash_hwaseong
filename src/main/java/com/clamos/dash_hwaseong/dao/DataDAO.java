@@ -10,5 +10,6 @@ import java.util.Map;
 @Repository
 public interface DataDAO {
     List<Map<String, String>> select_welfare_map();
-    List<Map<String, String>> select_public_facilities();
+    List<Map<String, String>> select_public_facilities_excel();
+    List<Map<String, String>> select_public_facilities_col();
 }

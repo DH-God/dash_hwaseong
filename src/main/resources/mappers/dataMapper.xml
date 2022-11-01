@@ -13,15 +13,15 @@
         ]]>
     </select>
 
-    <select id="select_public_facilities" resultType="HashMap" resultMap="excel_data">
+    <select id="select_public_facilities_excel" resultType="HashMap" resultMap="excel_data">
         <![CDATA[
         SELECT DATA_CONT FROM ADM_XLS_DATA WHERE XLS_UPLD_ID IN (1047, 1048, 1031, 1035, 1033, 1029, 1032, 1036) AND DEL_YN='N';
         ]]>
     </select>
 
-    <select id="select_public_facilities" resultType="HashMap" resultMap="excel_data">
+    <select id="select_public_facilities_col" resultType="HashMap" resultMap="excel_data">
         <![CDATA[
-        SELECT DATA_CONT FROM ADM_XLS_DATA WHERE XLS_UPLD_ID IN (1047, 1048, 1031, 1035, 1033, 1029, 1032, 1036) AND DEL_YN='N';
+        SELECT SIGUN_NM, PARK_NM FROM COL_API_PARK WHERE DEL_YN='N';
         ]]>
     </select>
 
