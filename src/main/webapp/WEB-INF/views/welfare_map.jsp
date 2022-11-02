@@ -94,7 +94,7 @@
 
                     <div class="cont none-bg">
                         <div class="map-wrap">
-                            <div id="map"  style="border:0; width:100%; height:100%;">
+                            <div id="map" style="border:0; width:100%; height:100%;">
                             </div>
                             <div class="map-infomation">
                                 <h4>복지시설</h4>
@@ -228,6 +228,9 @@
     const cqv2_ = []; // 주소 컬럼 데이터
     let marker_info = []; // 마커 정보
     let content=''; //마커 클릭시 표시되는 커스텀 오버레이(구분별로 다른 오버레이 표시 위헤)
+    let imageSrc = '', // 마커이미지의 주소입니다
+        imageSize = new kakao.maps.Size(34, 36) // 마커이미지의 크기입니다
+        // imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
     let clickedOverlay = null; //마커 위에 열려있는 커스텀 오버레이
     const customOverlays = []; // 마커 클릭시 표시되는 커스텀 오버레이
     const classNames = document.getElementsByClassName('crk5'); //
@@ -239,12 +242,14 @@
     const checkbox_type4 = document.querySelector('input[type=checkbox][value=type4]');
     const checkbox_type5 = document.querySelector('input[type=checkbox][value=type5]');
     const checkbox_type6 = document.querySelector('input[type=checkbox][value=type6]');
+    // const checkbox_type6 = document.querySelectorquerySelector('input[type=checkbox][value=type6]');
     let before_id =''; // 선태 되어있는 데이터
     const areas = []; //행정구역 구분 폴리곤 정보 담을 배열
-    let x='';
-    let y='';
+
     // 주소-좌표 변환 객체를 생성합니다
     const geocoder = new kakao.maps.services.Geocoder();
+    let x__='';
+    let y__='';
 
 
 
@@ -262,18 +267,29 @@
         // crk5_.push(crk5);
         // cqv2_.push(cqv2);
 
+
         if(!ezv7||!kob5) {
+
+            let crk5__=crk5;
+            let q3rp__=q3rp;
+            let cqv2__=cqv2;
             geocoder.addressSearch(cqv2, function (result, status) {
                 if (status === kakao.maps.services.Status.OK) {
-                    x=result[0].x;
-                    y=result[0].y;
+                    x__=result[0].x;
+                    y__=result[0].y;
+                    console.log(x__);
+                    console.log(y__);
+                    console.log(crk5__);
+                    console.log(q3rp__);
+                    console.log(cqv2__);
+
+
                 } else {
                     console.log('좌표변환실패');
                 }
 
             });
-            marker_info = [...marker_info, {ezv7: y, kob5: x, crk5, q3rp, cqv2}];
-
+            marker_info = [...marker_info, {ezv7: y__, kob5: x__, crk5: crk5__, q3rp: q3rp__, cqv2: cqv2__}];
         } else {
             marker_info = [...marker_info, {ezv7, kob5, crk5, q3rp, cqv2}];
 
@@ -316,7 +332,7 @@
 
 
 //구분명 별로 다른색 커스텀 오버레이 표시
-for(let idx=0; idx < trIndex; idx++) {
+for(let idx=0; idx < marker_info.length; idx++) {
     const iwContent1 = '<div class="marker-box type1 active" style="left: 20%; top:25%; ">' +
         '<div class="marker"><img src="img/common/marker1.svg" alt="주황색마커"></div>' +
         '<div class="tit">' + marker_info[idx].q3rp + '</div>' +
@@ -349,33 +365,42 @@ for(let idx=0; idx < trIndex; idx++) {
 
         switch (marker_info[idx].crk5) {
             case '어르신':
+                imageSrc='img/common/marker6.svg'
                 content = iwContent6;
                 break;
             case '통합서비스':
+                imageSrc='img/common/marker5.svg'
                 content = iwContent5;
                 break;
             case '아동 청소년':
+                imageSrc='img/common/marker4.svg'
                 content = iwContent4;
                 break;
             case '여성 다문화':
+                imageSrc='img/common/marker3.svg'
                 content = iwContent3;
                 break;
             case '보건의료시설':
+                imageSrc='img/common/marker2.svg'
                 content = iwContent2;
                 break;
             case '장애인':
+                imageSrc='img/common/marker1.svg'
                 content = iwContent1;
                 break;
         }
-    // console.log(coordinate[idx].kob5);
+            // console.log(marker_info);
+            // console.log(idx);
             const coords = new kakao.maps.LatLng(marker_info[idx].ezv7, marker_info[idx].kob5);
 
-            // console.log(marker_info);
-            // console.log(coordinate[idx].ezv7);
+
+        // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+        var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 
             // 결과값으로 받은 위치를 마커로 표시합니다
             const marker = new kakao.maps.Marker({
-                position: coords
+                position: coords,
+                image: markerImage // 마커이미지 설정
             });
 
 
@@ -442,6 +467,7 @@ for(let idx=0; idx < trIndex; idx++) {
             //생성된 커스텀 오베레이를 배열에 넣는다.
             customOverlays.push(customOverlay);
             clusterer.addMarkers(markers);
+            console.log(markers);
         }
 
 }
@@ -755,7 +781,6 @@ for(let idx=0; idx < trIndex; idx++) {
 
         }
     }
-
 
 </script>
 
